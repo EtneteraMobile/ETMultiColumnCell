@@ -1,0 +1,6 @@
+framework module Pods_ETMultiColumnCell_Tests {
+  umbrella header "Pods-ETMultiColumnCell_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
