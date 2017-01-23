@@ -24,6 +24,7 @@
 		1A34DAD0A12D360415BA58F4A9BE70FC /* DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18346C82D017A21FF2D24B18D2A19F96 /* DSL.swift */; };
 		1A9126F01EBC2E30B2E6F881B6B87BCD /* Stringers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4DD3A78EA1ED665AB5B536675F79D11 /* Stringers.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		232A44C5F6145555918520FA61E75E61 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA570EBAAA31239A6305CFD1BA04587C /* Expression.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		24306DEAD8EBCB930B69200CE219BDC9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D582674A6983604C34B81F809F76255 /* UIKit.framework */; };
 		24B2AFC31898725750519372CFB2350A /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = F3696EC637DC2B4E0D9042A916287FDF /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		29CB1841D467CCBA6A2A15F55AF9C065 /* QuickSelectedTestSuiteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B3330E9A86A20013F3ABF42BC342A2 /* QuickSelectedTestSuiteBuilder.swift */; };
 		2A2C12A7B0C614BD6C56CCB1093F0406 /* AssertionRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E67650E7214DCE853B31771FB5FEF5 /* AssertionRecorder.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -38,7 +39,6 @@
 		36076C14B35110B528A15AF21826CCE1 /* Nimble-Snapshots-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EFAA79F3715494A2A9C87B50E05DEC0E /* Nimble-Snapshots-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		36A09777D96DA589FD7FB47DD6EDC2AB /* Nimble-Snapshots-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFC3CB0C7C9BDE6158189DAA3FFBED5 /* Nimble-Snapshots-dummy.m */; };
 		3A9DE5E02A5ADDF4742F73DB9818AF40 /* ThrowAssertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A73BFE6363E58209795B79CE6BC0335 /* ThrowAssertion.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		3EB492F0A49777FEEEEF0923B5E63064 /* ETMultiColumnCell-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BF0FB5557C272A95BCBBE4A17925B51 /* ETMultiColumnCell-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4229612BB904D238FC820EF58312B95F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77FF979DB93FFC369BEC3D6B3C8B9C7A /* Foundation.framework */; };
 		42E366DDFBF0A6747278AA389FEDAAE1 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7DB8C4496F3D1DB3710A3D48A3D60 /* Example.swift */; };
 		44E30F568C9A3547E4757E27936D9D2A /* BeLessThan.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59D049190E109365BF9BA6BF1409B7F /* BeLessThan.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -50,6 +50,7 @@
 		4C0EB4D501BF057B61CD8BBABC05A2B4 /* SatisfyAnyOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C1E27C8CE0AFBE69F80EEC5A72348C /* SatisfyAnyOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		4C6BA4EC0EEE176994123474854DBE5A /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331AE497C208A30EDB1145039A6486B3 /* Errors.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		4F102D7A8607B4F0A143C7B1D23B6975 /* FailureMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D86C1DE6C978BA3D2C81477BE7BA9F2 /* FailureMessage.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		54556FCC145A46B08CA54476F27468A4 /* ETMultiColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF004A8298A7F5833F0C7304556A724 /* ETMultiColumnCell.swift */; };
 		54D237D4424DD3C6C9DA0BDCC1118D0B /* XCTestSuite+QuickTestSuiteBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 91B35075C2C09AD9E7FB16BE3C249DB9 /* XCTestSuite+QuickTestSuiteBuilder.m */; };
 		554CFF29B6DB47BA7B52F42DADD18C5B /* BeAKindOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A4AD39E55980AD6756E73FBCE477D /* BeAKindOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		55C6997E60F8F71C2B03FCB6F2E7E75B /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = C098EE9572B95825B622EAA7BFB4731C /* Async.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -71,12 +72,11 @@
 		6EC12E5DAE120A501A99D4134A1D7D28 /* DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 64DF2E04EDA323EE4B83913F112D1497 /* DSL.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		6EE97AD95CE78493C711579A2A6C9E46 /* BeginWith.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199A02F676DA73375C88A80FB16DD4D /* BeginWith.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		70081396B556628C08505BDF25E1DD5A /* Equal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82C7AA48F705507E47A21AD8E10484F /* Equal.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		711B39791E31E2450047F1BF /* ETMultiColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 711B39781E31E2450047F1BF /* ETMultiColumnCell.swift */; };
 		73773CA54114CD25031B43493B6474A5 /* NMBExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E91D3D71D09F9D765DA1760C4501113 /* NMBExpectation.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		73B96724E9D2B03677BA3C2D24601D64 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6EE56D4DC2461C7BBF0AE378723875 /* XCTest.framework */; };
+		75A7751C66CCFB1C620A1E65F77F05CC /* ETMultiColumnCell-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B673433799D755A6B62CBE4B5289CDFE /* ETMultiColumnCell-dummy.m */; };
 		789991096AE460E5CDEE7F3B54B08431 /* CwlCatchBadInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 23871FC25FD3F6C0A3F65DA3F345605D /* CwlCatchBadInstruction.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		78C0EDC656B9152FB603EC259D241DA5 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9823197EA5904A9150FB0AD8B09841E6 /* FBSnapshotTestCase.framework */; };
-		7A41B662047A7D9A1DA09D1D0101A821 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77FF979DB93FFC369BEC3D6B3C8B9C7A /* Foundation.framework */; };
 		7C2792121CF1996F6795A5672EE00272 /* CwlBadInstructionException.swift in Sources */ = {isa = PBXBuildFile; fileRef = E024920AB8586A368B7A80B2476E9E8D /* CwlBadInstructionException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		7FABF717282EC77B44E1F0A61EBB0188 /* CwlCatchException.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C704810C5F00D4C1AE79FA0F63432B0 /* CwlCatchException.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		80EB3F3AD608D1B132A3EA4B3E28CAB1 /* mach_excServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8345849CAFBED9EEDE92E26A20C0A6F5 /* mach_excServer.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -119,10 +119,12 @@
 		C033C346AC287D2009457C31E85587D1 /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C36DB6F05615EC71278526272A72BAD /* Quick.framework */; };
 		C278C1114E97370FF0693479F1FE8634 /* AsyncMatcherWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD1F32B8DCF598ED9E3BDF343E4C8A91 /* AsyncMatcherWrapper.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		C360952381641F725C15758993A0F665 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = E4C4B015314BBB05168BA389FF2D0CA4 /* UIImage+Diff.m */; };
+		C4019C2AB7BB23E52299B7451FFE4941 /* ETMultiColumnCell-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BF0FB5557C272A95BCBBE4A17925B51 /* ETMultiColumnCell-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C4D480AA1C3A602D104628DDAAA5C6FE /* Pods-ETMultiColumnCell_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0064BB58E00FC0FDF5F6C2400DC9FE4C /* Pods-ETMultiColumnCell_Tests-dummy.m */; };
 		C8A959D4777884FEF0AC76BE0A56E1BD /* QuickSpec.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F22D667453265DAB968FBDAF1B553D8 /* QuickSpec.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CAB36E2E9ADBC842C1FC0235195764FD /* CurrentTestCaseTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = BE503D79408C000D2C055851C33ACE52 /* CurrentTestCaseTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		CEA8369F1433E2727B8F53C9DF68FBB5 /* PostNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCCF841830A407AA9D8BB9E8F07F5C /* PostNotification.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
+		D0FD28A5A0CDBDF585FFC4B50F760D8E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77FF979DB93FFC369BEC3D6B3C8B9C7A /* Foundation.framework */; };
 		D39881E8AB50A77DABF756314695BF25 /* PrettySyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C3776AEE672BA0788E6A1E5CEE93B2 /* PrettySyntax.swift */; };
 		D3D2234F81839E901E145BD580983F2D /* Pods-ETMultiColumnCell_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CE8F82AF1A76A00EC329CE7BC637AD2F /* Pods-ETMultiColumnCell_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D40979DDAE854070C7B96BDFAA335CD2 /* Pods-ETMultiColumnCell_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B489E60480A6BF13F00DC92CA81EB0BA /* Pods-ETMultiColumnCell_Example-dummy.m */; };
@@ -140,14 +142,12 @@
 		ED60F0FCE00B05D670EAEAAB22A01B7C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6EE56D4DC2461C7BBF0AE378723875 /* XCTest.framework */; };
 		ED6A0B20E661EA13A99C377E2213DC5F /* NimbleSnapshotsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7151F48AD847BF31ED71E00140349933 /* NimbleSnapshotsConfiguration.swift */; };
 		EDC82FA39F6D1B80EE6FE77A87AADECF /* Functional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C71B76BF6333F7E3BC21CF4790615 /* Functional.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		EECCDF1C643C1E873EDB929EE5036A12 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D582674A6983604C34B81F809F76255 /* UIKit.framework */; };
 		EF6A8905CF7DF656FABD150ADED75007 /* NSString+QCKSelectorName.h in Headers */ = {isa = PBXBuildFile; fileRef = BD73B4629AE77675CA5397DB9836BE88 /* NSString+QCKSelectorName.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F0B3BC4CE7B1074981F32DDD032E9539 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D582674A6983604C34B81F809F76255 /* UIKit.framework */; };
 		F3199E5D140F672B588EC44DE319EDA3 /* Nimble.h in Headers */ = {isa = PBXBuildFile; fileRef = BBB1CC5D92DC46FF22448782CCC44E1D /* Nimble.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F366B775C22BBE1DBAC7BDB7DE8F0A26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F609119DC233417D2E53038D69EDA53D /* QuartzCore.framework */; };
 		F47158C234C50FFB069A1EF8AB26D9F1 /* FBSnapshotTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = BE187BBD2A0FA098D99DDBE8C0ACAC91 /* FBSnapshotTestController.m */; };
 		F6CE045DD3B4A58640421E96B96AF9AA /* NMBObjCMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4FCFD654088933CAD87C7031489CB /* NMBObjCMatcher.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		F903BE423D931FA13B518A360378241E /* ETMultiColumnCell-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B673433799D755A6B62CBE4B5289CDFE /* ETMultiColumnCell-dummy.m */; };
 		FB5F6E844EE3149D150CE43F930E565B /* MatcherProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F48368B8248E6DE7D078A59E62077BD /* MatcherProtocols.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		FBA6B154E352BEDBCFCFDD7369FD5AAB /* NMBExceptionCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3A49F2F919C4A0822DA6F4BB67C0F /* NMBExceptionCapture.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 /* End PBXBuildFile section */
@@ -164,7 +164,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 01E5F12E81DF2E4F3C2DD1292DA3971A;
+			remoteGlobalIDString = FA7FE60DE6B97D99276D5215DD3B6255;
 			remoteInfo = ETMultiColumnCell;
 		};
 		623D0C91951DB5475E2C0E7EB818A6F6 /* PBXContainerItemProxy */ = {
@@ -224,6 +224,7 @@
 		0AB3A49F2F919C4A0822DA6F4BB67C0F /* NMBExceptionCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = NMBExceptionCapture.m; path = Sources/NimbleObjectiveC/NMBExceptionCapture.m; sourceTree = "<group>"; };
 		0AE630EE628914F19009DB020200BDDB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AEAF67D1F53BA3D6E6CA0121B5A90BA /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/Categories/UIImage+Compare.h"; sourceTree = "<group>"; };
+		0AF004A8298A7F5833F0C7304556A724 /* ETMultiColumnCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ETMultiColumnCell.swift; sourceTree = "<group>"; };
 		10A7DE5ED83DC9EC63F445D66A280904 /* SourceLocation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SourceLocation.swift; path = Sources/Nimble/Utils/SourceLocation.swift; sourceTree = "<group>"; };
 		14ED7EE1C5006B7C2FC9931DAC233884 /* BeEmpty.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeEmpty.swift; path = Sources/Nimble/Matchers/BeEmpty.swift; sourceTree = "<group>"; };
 		18346C82D017A21FF2D24B18D2A19F96 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Quick/DSL/DSL.swift; sourceTree = "<group>"; };
@@ -283,7 +284,6 @@
 		6DA5B2C8979332693562BDAE9569DE4C /* MatcherFunc.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatcherFunc.swift; path = Sources/Nimble/Matchers/MatcherFunc.swift; sourceTree = "<group>"; };
 		6F22D667453265DAB968FBDAF1B553D8 /* QuickSpec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QuickSpec.h; path = Sources/QuickObjectiveC/QuickSpec.h; sourceTree = "<group>"; };
 		6F92D18D334AFAB748255A0C89FCA46B /* MatchError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MatchError.swift; path = Sources/Nimble/Matchers/MatchError.swift; sourceTree = "<group>"; };
-		711B39781E31E2450047F1BF /* ETMultiColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETMultiColumnCell.swift; sourceTree = "<group>"; };
 		7126CA3B2AD0340024232DE33971817D /* NSString+QCKSelectorName.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+QCKSelectorName.m"; path = "Sources/QuickObjectiveC/NSString+QCKSelectorName.m"; sourceTree = "<group>"; };
 		7151F48AD847BF31ED71E00140349933 /* NimbleSnapshotsConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NimbleSnapshotsConfiguration.swift; sourceTree = "<group>"; };
 		730E354240A74426E0EAF1566F9F96EB /* ErrorUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorUtility.swift; path = Sources/Quick/ErrorUtility.swift; sourceTree = "<group>"; };
@@ -401,21 +401,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1B738A8DF195A8534D3575600D0F91CD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A41B662047A7D9A1DA09D1D0101A821 /* Foundation.framework in Frameworks */,
-				EECCDF1C643C1E873EDB929EE5036A12 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		52D2A0585E7609A05EA3730EDC88EF38 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				499FBBE0BC69D633856BB07E2C80C0CF /* Foundation.framework in Frameworks */,
 				ED60F0FCE00B05D670EAEAAB22A01B7C /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BA2963068B961D3F0F3EFF615B0F20B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0FD28A5A0CDBDF585FFC4B50F760D8E /* Foundation.framework in Frameworks */,
+				24306DEAD8EBCB930B69200CE219BDC9 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +560,14 @@
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
+		736E65B77260E1046EE5351A4ED8C13B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				0AF004A8298A7F5833F0C7304556A724 /* ETMultiColumnCell.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
@@ -570,6 +578,14 @@
 				923245018F5AC2771E30B8ABB9AA0867 /* Products */,
 				13A651DCA71E2F7457399939F9FDF516 /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		85DA15CD198600D1D8ED3119777F0C07 /* ETMultiColumnCell */ = {
+			isa = PBXGroup;
+			children = (
+				736E65B77260E1046EE5351A4ED8C13B /* Classes */,
+			);
+			path = ETMultiColumnCell;
 			sourceTree = "<group>";
 		};
 		8EBEDD7CDD38628083C1BAAC15789DE2 /* SwiftSupport */ = {
@@ -592,14 +608,6 @@
 				0229635215266DDC2985C128E4020239 /* Quick.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		978D4261698030BF74F6DCD7D742EC8E /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				711B39781E31E2450047F1BF /* ETMultiColumnCell.swift */,
-			);
-			path = Classes;
 			sourceTree = "<group>";
 		};
 		AD5401613CDFDA21D9151C5DAAC5B2EE /* Pods-ETMultiColumnCell_Example */ = {
@@ -683,19 +691,11 @@
 		BF915F59087C169ECAB299F9733906A8 /* ETMultiColumnCell */ = {
 			isa = PBXGroup;
 			children = (
-				C18EA6A26AEF4702247257E2B2D329D1 /* ETMultiColumnCell */,
+				85DA15CD198600D1D8ED3119777F0C07 /* ETMultiColumnCell */,
 				44AA9DED33B9155D76217EDAE12CE5CB /* Support Files */,
 			);
 			name = ETMultiColumnCell;
 			path = ../..;
-			sourceTree = "<group>";
-		};
-		C18EA6A26AEF4702247257E2B2D329D1 /* ETMultiColumnCell */ = {
-			isa = PBXGroup;
-			children = (
-				978D4261698030BF74F6DCD7D742EC8E /* Classes */,
-			);
-			path = ETMultiColumnCell;
 			sourceTree = "<group>";
 		};
 		C6262FCF46052C8C9480585E842296FA /* Support Files */ = {
@@ -855,6 +855,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3F494EDBCB4E73E4ABA4A5473727A357 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4019C2AB7BB23E52299B7451FFE4941 /* ETMultiColumnCell-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5A1B0302B49321D69032AD8813554BB6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -910,34 +918,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EC9537B05BF025CE99A08749BC15540C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3EB492F0A49777FEEEEF0923B5E63064 /* ETMultiColumnCell-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		01E5F12E81DF2E4F3C2DD1292DA3971A /* ETMultiColumnCell */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 801DEEDE39D656B04E607C458058E331 /* Build configuration list for PBXNativeTarget "ETMultiColumnCell" */;
-			buildPhases = (
-				FB9B24BE4C2CC319840C0137EB31BE9F /* Sources */,
-				1B738A8DF195A8534D3575600D0F91CD /* Frameworks */,
-				EC9537B05BF025CE99A08749BC15540C /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ETMultiColumnCell;
-			productName = ETMultiColumnCell;
-			productReference = C286C8CF19E9D468C6C8DC26F735C08C /* ETMultiColumnCell.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		5DB46EA499F9A5E22765121102FCC34B /* FBSnapshotTestCase */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D492E06A9E9F494492A2A3B4D19493E /* Build configuration list for PBXNativeTarget "FBSnapshotTestCase" */;
@@ -1048,6 +1031,23 @@
 			productReference = B9FB844BB210D779EFF4F97609001189 /* Pods_ETMultiColumnCell_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		FA7FE60DE6B97D99276D5215DD3B6255 /* ETMultiColumnCell */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF5B7CA124F79267C34E39102665F74F /* Build configuration list for PBXNativeTarget "ETMultiColumnCell" */;
+			buildPhases = (
+				BFD70233D2D11920F9E07356C1F1483E /* Sources */,
+				9BA2963068B961D3F0F3EFF615B0F20B /* Frameworks */,
+				3F494EDBCB4E73E4ABA4A5473727A357 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ETMultiColumnCell;
+			productName = ETMultiColumnCell;
+			productReference = C286C8CF19E9D468C6C8DC26F735C08C /* ETMultiColumnCell.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1056,29 +1056,6 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0700;
-				TargetAttributes = {
-					01E5F12E81DF2E4F3C2DD1292DA3971A = {
-						LastSwiftMigration = 0820;
-					};
-					5DB46EA499F9A5E22765121102FCC34B = {
-						LastSwiftMigration = 0820;
-					};
-					72E30CEFE495DD0EB9CFB72FCF80894C = {
-						LastSwiftMigration = 0820;
-					};
-					9A3AE440FB23CCC076AA408C3C4836C4 = {
-						LastSwiftMigration = 0820;
-					};
-					A5C430B1E2D8298FD6C5403590C0B80F = {
-						LastSwiftMigration = 0820;
-					};
-					EEEA466ABA1DCBA37271C061F56BD38E = {
-						LastSwiftMigration = 0820;
-					};
-					F5AC2C0137306B41F9FA40E196DD26D3 = {
-						LastSwiftMigration = 0820;
-					};
-				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1092,7 +1069,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01E5F12E81DF2E4F3C2DD1292DA3971A /* ETMultiColumnCell */,
+				FA7FE60DE6B97D99276D5215DD3B6255 /* ETMultiColumnCell */,
 				5DB46EA499F9A5E22765121102FCC34B /* FBSnapshotTestCase */,
 				72E30CEFE495DD0EB9CFB72FCF80894C /* Nimble */,
 				9A3AE440FB23CCC076AA408C3C4836C4 /* Nimble-Snapshots */,
@@ -1164,6 +1141,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				D40979DDAE854070C7B96BDFAA335CD2 /* Pods-ETMultiColumnCell_Example-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BFD70233D2D11920F9E07356C1F1483E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A7751C66CCFB1C620A1E65F77F05CC /* ETMultiColumnCell-dummy.m in Sources */,
+				54556FCC145A46B08CA54476F27468A4 /* ETMultiColumnCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1242,15 +1228,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FB9B24BE4C2CC319840C0137EB31BE9F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				711B39791E31E2450047F1BF /* ETMultiColumnCell.swift in Sources */,
-				F903BE423D931FA13B518A360378241E /* ETMultiColumnCell-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1299,7 +1276,7 @@
 		F14638C2E91D8562E0235FE6477933D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = ETMultiColumnCell;
-			target = 01E5F12E81DF2E4F3C2DD1292DA3971A /* ETMultiColumnCell */;
+			target = FA7FE60DE6B97D99276D5215DD3B6255 /* ETMultiColumnCell */;
 			targetProxy = 34CEA6D137189E0D4F4120F5467D398E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1439,37 +1416,6 @@
 			};
 			name = Release;
 		};
-		5292ECCC4EBCCEC03B9C4D56ABFEB019 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06FDAB3F2BD5DA41318AB28021EC151B /* ETMultiColumnCell.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ETMultiColumnCell/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = ETMultiColumnCell;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		596D6049092EA8547923AFBCBB01E462 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 451AA717D8D78320A5AC63C708B4AC0E /* Pods-ETMultiColumnCell_Tests.release.xcconfig */;
@@ -1503,6 +1449,37 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		6A638C723D23134F479F0395F6C63E86 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06FDAB3F2BD5DA41318AB28021EC151B /* ETMultiColumnCell.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ETMultiColumnCell/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = ETMultiColumnCell;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		6AC7E1EB249EC2499C65B46AAE71315F /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1625,6 +1602,36 @@
 			};
 			name = Release;
 		};
+		C8C2BE3E3EBEDD0DDF917EA7BA770BD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06FDAB3F2BD5DA41318AB28021EC151B /* ETMultiColumnCell.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ETMultiColumnCell/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = ETMultiColumnCell;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		D3E3D092A3FF7311A98E44BBA36FFD12 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1688,38 +1695,6 @@
 				MODULEMAP_FILE = "Target Support Files/Nimble/Nimble.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = Nimble;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E0C2A69DC9B360AB05F0EDF0ED6CC2E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06FDAB3F2BD5DA41318AB28021EC151B /* ETMultiColumnCell.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ETMultiColumnCell/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ETMultiColumnCell/ETMultiColumnCell.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = ETMultiColumnCell;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1851,15 +1826,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		801DEEDE39D656B04E607C458058E331 /* Build configuration list for PBXNativeTarget "ETMultiColumnCell" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E0C2A69DC9B360AB05F0EDF0ED6CC2E1 /* Debug */,
-				5292ECCC4EBCCEC03B9C4D56ABFEB019 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		8478D477101E85951DC9B311C58C3C09 /* Build configuration list for PBXNativeTarget "Pods-ETMultiColumnCell_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1901,6 +1867,15 @@
 			buildConfigurations = (
 				FDEFE8B5CFEE80A3A64DD91CD40F3472 /* Debug */,
 				C6C6BB73610510BB9142119F4FF333C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF5B7CA124F79267C34E39102665F74F /* Build configuration list for PBXNativeTarget "ETMultiColumnCell" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A638C723D23134F479F0395F6C63E86 /* Debug */,
+				C8C2BE3E3EBEDD0DDF917EA7BA770BD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

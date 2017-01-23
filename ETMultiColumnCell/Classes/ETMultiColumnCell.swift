@@ -6,4 +6,9 @@
 //
 //
 
-import Foundation
+import UIKit
+
+public class ETMultiColumnCell: UITableViewCell {
+    
+    // FIXME: Implementation
+}
