@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-import ETMultiColumnCell
+@testable import ETMultiColumnCell
 
 class MutliColumnCellSpec: QuickSpec {
     override func spec() {
@@ -51,15 +51,16 @@ class MutliColumnCellSpec: QuickSpec {
                 let randCountToRemove = config.columns.count - self.rand(withBounds: config.columns.count - 1)
                 let removeLastCount = randCountToRemove == 0 ? 1 : randCountToRemove
 
-                reducedConfig = config
-                reducedConfig.columns.removeLast(removeLastCount)
+                var columns = config.columns
+                columns.removeLast(removeLastCount)
+                reducedConfig = ETMultiColumnCell.Configuration(columns: columns)
 
                 // Initializes cells
                 cellStatic = ETMultiColumnCell(with: config)
                 cellDynamic = ETMultiColumnCell(with: reducedConfig)
 
                 // Sets default frames
-                cellStatic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: ETMultiColumnCell.height(with: config)))
+                cellStatic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
                 cellDynamic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
             }
 
@@ -82,12 +83,10 @@ class MutliColumnCellSpec: QuickSpec {
 
                 it("with right reuse identifier") {
 
-                    let identifier1 = self.identifierForConfig(config)
-
+                    let identifier1 = "\(NSStringFromClass(ETMultiColumnCell.self))-\(config.columns.count)"
                     expect(cellStatic.reuseIdentifier).to(equal(identifier1))
 
-                    let identifier2 = self.identifierForConfig(reducedConfig)
-
+                    let identifier2 = "\(NSStringFromClass(ETMultiColumnCell.self))-\(reducedConfig.columns.count)"
                     expect(cellDynamic.reuseIdentifier).to(equal(identifier2))
                 }
 
@@ -116,32 +115,41 @@ class MutliColumnCellSpec: QuickSpec {
 
                     it("column count missmatch") {
 
-                        expect{ try cellStatic.customize(with: reducedConfig) }.to(throwError())
-                        expect{ try cellDynamic.customize(with: config) }.to(throwError())
+                        let description1 = "expected: \(config.columns.count) columns, got: \(reducedConfig.columns.count) columns"
+                        let description2 = "expected: \(reducedConfig.columns.count) columns, got: \(config.columns.count) columns"
+
+                        expect{ try cellStatic.customize(with: reducedConfig) }.to(throwError(ETMultiColumnCell.Error.columnsCountMissmatch(description: description1)))
+                        expect{ try cellDynamic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.columnsCountMissmatch(description: description2)))
                     }
 
-//                    it("TODO") {
-//
-//                    }
+                    it("invalid width") {
+                        cellStatic.frame.size.width = 0.0
+                        expect{ try cellStatic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.invalidWidth()))
+                    }
+
+                    it("insufficient width") {
+                        cellStatic.frame.size.width = 200.0
+                        expect{ try cellStatic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.insufficientWidth()))
+                    }
                 }
             }
 
             context("height") {
 
-                it("static height(with:)") {
+                it("static height(with:width:)") {
 
-                    // WARNING: i need to know height only based on configuration - dont know width - how to implement properly?
-                    let relativeSpace = cellStatic.frame.size.width - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
-                    let relativeColumn = relativeSpace / 2.0 // Remaining space is distributed equally to relative cells
+                    let cellWidth = cellStatic.frame.size.width
+                    let relativeSpace = cellWidth - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
+                    let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
                     let layoutingString = NSAttributedString(string: "Hello there!\nwith multiline text that is too long to be layouted on one line", attributes: [ NSFontAttributeName: UIFont.systemFont(ofSize: 12) ])
 
                     // Calculates height manualy
                     let boundingRect1 = layoutingString.boundingRect(with: CGSize(width: relativeColumn, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
                     // Cell calculated height
-                    let cellHeight1 = ETMultiColumnCell.height(with: config)
+                    let cellHeight1 = ETMultiColumnCell.height(with: config, width: cellWidth)
 
-                    expect(cellHeight1).to(equal(boundingRect1.size.height))
+                    expect(cellHeight1).to(equal(ceil(boundingRect1.size.height)))
 
                     // Updates cell
                     try! cellStatic.customize(with: editedConfig)
@@ -150,74 +158,29 @@ class MutliColumnCellSpec: QuickSpec {
                     let boundingRect2 = layoutingString.boundingRect(with: CGSize(width: 40.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
                     // Cell calculated height
-                    let cellHeight2 = ETMultiColumnCell.height(with: config)
+                    let cellHeight2 = ETMultiColumnCell.height(with: editedConfig, width: cellWidth)
 
-                    expect(cellHeight2).to(equal(boundingRect2.size.height))
-                }
-
-                it("layoutSubviews") {
-
-                    // Calculast height according config
-                    let cellHeight1 = ETMultiColumnCell.height(with: config)
-                    let cellHeight2 = ETMultiColumnCell.height(with: editedConfig)
-
-                    // Customizes cell and layouts it
-                    try? cellStatic.customize(with: config)
-                    cellStatic.layoutSubviews()
-
-                    expect(cellStatic.height).to(equal(cellHeight1))
-
-                    // Updates cell
-                    cellStatic.customize(with: editedConfig)
-                    cellStatic.layoutSubviews()
-
-                    expect(cellStatic.height).to(equal(cellHeight2))
-
-                }
-
-                context("errors") {
-
-                    it("column count missmatch") {
-
-                        expect{ try cellStatic.height(with: reducedConfig) }.to(throwError())
-                        expect{ try cellDynamic.height(with: config) }.to(throwError())
-                    }
-
-//                    it("TODO") {
-//
-//                    }
+                    expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
                 }
             }
 
+            context("columns width") {
+
+            }
         }
     }
 
     private func identifierForConfig(_ config: ETMultiColumnCell.Configuration) -> String {
         
-        var identifier = NSStringFromClass(ETMultiColumnCell.self) + "-"
-        
-        for cellConfig in config.columns {
-            
-            switch cellConfig.layout {
+        return config.columns.reduce(NSStringFromClass(ETMultiColumnCell.self) + "-") { result, current in
+
+            switch current.layout {
             case let .fixed(width):
-                identifier += "f\(width)"
+                return result + "f\(width)"
             case .relative():
-                identifier += "r"
+                return result + "r"
             }
         }
-        
-        // Builds reuse identifier
-//        let uniq = config.columns.map { (cellConfig: ETMultiColumnCell.Configuration.Column) -> String in
-//            
-//            switch cellConfig.layout {
-//            case let .fixed(width):
-//                return "f\(width)"
-//            case .relative():
-//                return "r"
-//            }
-//        }
-        
-        return identifier
     }
     
     private func rand(withBounds: Int) -> Int {

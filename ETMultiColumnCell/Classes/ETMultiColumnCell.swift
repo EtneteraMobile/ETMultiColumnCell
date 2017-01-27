@@ -13,7 +13,7 @@ public class ETMultiColumnCell: UITableViewCell {
     
     // MARK: - Variables
     
-    // MARK: Private
+    // MARK: private
     
     /// Cell configuration structure
     private var config: Configuration
@@ -25,6 +25,7 @@ public class ETMultiColumnCell: UITableViewCell {
     ///
     /// - Parameter config: <#config description#>
     public init(with config: Configuration) {
+
         self.config = config
 
         super.init(style: .default, reuseIdentifier: ETMultiColumnCell.identifier(with: config))
@@ -36,71 +37,89 @@ public class ETMultiColumnCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup
-    
+    // MARK: - Content
+
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+
+        try? customizeColumns(withTextUpdate: false)
+    }
+
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
-        for _ in config.columns {
-            contentView.addSubview(UILabel())
+        for _ in (0..<config.columns.count) {
+            self.contentView.addSubview(UILabel())
         }
     }
-    
-    
+
     /// Customize columns with content from current configuration.
-    private func customizeColumns() {
-        
-        for (index, columnConfig) in config.columns.enumerated() {
-            // TODO: switch to types - image/text,...
-            if let view = contentView.subviews[index] as? UILabel {
-                view.text = columnConfig.text
+    private func customizeColumns(withTextUpdate: Bool = true) throws {
+
+        let subviewsCount = contentView.subviews.count
+        var lastRightEdge: CGFloat = 0.0
+
+        let columnsWithSizes = try self.config.columnsWithSizes(inWidth: frame.size.width)
+
+        columnsWithSizes.enumerated().forEach {
+
+            guard $0.offset < subviewsCount else { return }
+            guard let columnLabel = self.contentView.subviews[$0.offset] as? UILabel else { return }
+
+            if withTextUpdate == true {
+                columnLabel.text = $0.element.column.text
             }
+
+            // Layouts
+            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0.0), size: $0.element.size)
+            lastRightEdge = columnLabel.frame.origin.x + columnLabel.frame.size.width
         }
     }
 
     // MARK: - Actions
     
-    // MARK: - Instance
+    // MARK: public
     
     /// Customize cell with content. When layout missmatch configurations occurs, Error is thrown.
     ///
     /// - Parameter config: cell configuration
-    /// - Throws: `ETMultiColumnCellError.layoutMissmatch`, `ETMultiColumnCellError.heighMissmatch`
+    /// - Throws: `ETMultiColumnCellError.columnsCountMissmatch`, `ETMultiColumnCellError.heighMissmatch`
     public func customize(with config: Configuration) throws {
-        
-        guard config.layoutHash() == self.config.layoutHash() else {
-            let description = "expected: " + self.config.layoutHash() + " got: " + config.layoutHash()
-            throw ETMultiColumnCellError.layoutMissmatch(description: description)
+
+        guard self.config.columns.count == config.columns.count else {
+            let errorDescription = "expected: \(self.config.columns.count) columns, got: \(config.columns.count) columns"
+            throw ETMultiColumnCell.Error.columnsCountMissmatch(description: errorDescription)
         }
-        
-        guard ETMultiColumnCell.height(with: config) == ETMultiColumnCell.height(with: self.config) else {
-            let description = "expected: \(ETMultiColumnCell.height(with: self.config)) got: \(ETMultiColumnCell.height(with: config))"
-            throw ETMultiColumnCellError.heighMissmatch(description: description)
-        }
-        
+
+        // Updates local config
         self.config = config
-        customizeColumns()
+
+        // Customizes content according new configuration
+        try customizeColumns()
     }
-    
-    // MARK: - Static
-    
-    
+}
+
+// MARK: - Static
+
+public extension ETMultiColumnCell {
+
     /// Returns unique identifier for given configuration
     ///
     /// - Parameter config: cell configuration
     /// - Returns: unique string - hash from cell configuaration layout parameters
     public static func identifier(with config: ETMultiColumnCell.Configuration) -> String {
-        
-        return  NSStringFromClass(ETMultiColumnCell.self) + "-" + config.layoutHash() + "-" + "\(height(with: config))"
+
+        return NSStringFromClass(ETMultiColumnCell.self) + "-\(config.columns.count)"
     }
-    
-    
+
     /// Returns height of cell for given configuration
     ///
     /// - Parameter config: cell configuration
     /// - Returns: height of cell for given configuration
-    public static func height(with config: ETMultiColumnCell.Configuration) -> CGFloat {
-        
-        // TODO: calculate based on config
-        return 44
+    public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) -> CGFloat {
+
+        let maxTouple = try! config.columnsWithSizes(inWidth: width).max { lhs, rhs -> Bool in
+            return lhs.size.height < rhs.size.height
+        }
+        return maxTouple?.size.height ?? 0.0
     }
 }
