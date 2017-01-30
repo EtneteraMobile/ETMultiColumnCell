@@ -32,24 +32,22 @@ class MutliColumnCellSpec: QuickSpec {
 
             beforeEach {
                 
-                config = ETMultiColumnCell.Configuration(columns: [ETMultiColumnCell.Configuration.Column(layout: .relative, text: "asdasd")])
-                
                 // Creates basic configuration
                 config = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(40.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative, text: "Hello there!\nwith multiline text that is too long to be layouted on one line"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(110.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(200.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative, text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), attText: attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hello there!")
                     ])
 
                 // Creates edited basic configuration
                 editedConfig = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(40.0), text: "Hello there! With multiline text that is too long to be layouted on one line"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative, text: "Hi!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(110.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(200.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative, text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: nil), attText: attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hi!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hello there!")
                     ])
 
                 // - 1 to at least one element will exist
@@ -110,12 +108,12 @@ class MutliColumnCellSpec: QuickSpec {
                     try! cellStatic.customize(with: config)
 
                     expect(subviews[0].text).to(equal("Hello there!"))
-                    expect(subviews[1].text).to(equal("Hello there!\nwith multiline text that is too long to be layouted on one line"))
+                    expect(subviews[1].attributedText).to(equal(self.attributedText))
 
                     // Customizes with new content
                     try? cellStatic.customize(with: editedConfig)
 
-                    expect(subviews[0].text).to(equal("Hello there! With multiline text that is too long to be layouted on one line"))
+                    expect(subviews[0].attributedText).to(equal(self.attributedText))
                     expect(subviews[1].text).to(equal("Hi!"))
                 }
 
@@ -255,5 +253,23 @@ class MutliColumnCellSpec: QuickSpec {
 
     private func rand(withBounds: Int) -> Int {
         return Int(arc4random_uniform(UInt32(withBounds)))
+    }
+
+    private var attributedText: NSAttributedString {
+
+        let paragraphStyleLeft = NSMutableParagraphStyle()
+        paragraphStyleLeft.alignment = .left
+        let paragraphStyleCenter = NSMutableParagraphStyle()
+        paragraphStyleCenter.alignment = .center
+        let paragraphStyleRight = NSMutableParagraphStyle()
+        paragraphStyleRight.alignment = .right
+
+        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight])
+        r.append(NSAttributedString(string: "\n"))
+        r.append(NSAttributedString(string: "center jumbotron", attributes: [NSParagraphStyleAttributeName: paragraphStyleCenter, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
+        r.append(NSAttributedString(string: "\n"))
+        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
+
+        return r
     }
 }

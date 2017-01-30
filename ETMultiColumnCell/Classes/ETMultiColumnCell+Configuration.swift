@@ -34,6 +34,10 @@ public extension ETMultiColumnCell {
             let layout: Layout
             let text: String
 
+            func test() {
+
+            }
+
             // MARK: - Inner
 
             /// Layout properties
@@ -41,8 +45,25 @@ public extension ETMultiColumnCell {
             /// - relative: relative size column
             /// - fixed: fixed size column (size as parameter)
             public enum Layout {
-                case relative
-                case fixed(CGFloat)
+
+                case relative(edges:(inner: Edges?, outer: Edges?)?)
+                case fixed(width: CGFloat, edges: (inner: Edges?, outer: Edges?)?)
+
+                // MARK: - Inner
+
+                public struct Edges {
+                    let top: CGFloat?
+                    let left: CGFloat?
+                    let bottom: CGFloat?
+                    let right: CGFloat?
+
+                    init(top: CGFloat? = nil, left: CGFloat? = nil, bottom: CGFloat? = nil, right: CGFloat? = nil) {
+                        self.top = top
+                        self.left = left
+                        self.bottom = bottom
+                        self.right = right
+                    }
+                }
             }
         }
     }
@@ -58,7 +79,7 @@ public extension ETMultiColumnCell.Configuration {
         // Calculates fixed columns width sum
         var relativeColumnsCount = 0
         let fixedColumnsWidthSum = columns.reduce(CGFloat(0.0)) {
-            guard case let .fixed(w) = $1.layout else {
+            guard case let .fixed(width: w, edges: _) = $1.layout else {
                 relativeColumnsCount += 1
                 return $0
             }
@@ -78,7 +99,7 @@ public extension ETMultiColumnCell.Configuration {
             switch $0.layout {
             case .relative:
                 width = relativeColumnWidth
-            case let .fixed(fixedWidth):
+            case let .fixed(width: fixedWidth, edges: _):
                 width = fixedWidth
             }
 
