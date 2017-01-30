@@ -7,6 +7,12 @@ import Nimble
 class MutliColumnCellSpec: QuickSpec {
     override func spec() {
 
+        // FIXME: Missing implementation
+        // * Attributed string as text
+        // * Padding inside of column
+        // * Space between columns
+        // * Separator (width, color)
+
         describe("multiColumnCell") {
 
             // Contains static number of columns.
@@ -61,7 +67,9 @@ class MutliColumnCellSpec: QuickSpec {
 
                 // Sets default frames
                 cellStatic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
+                cellStatic.contentView.frame = cellStatic.bounds
                 cellDynamic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
+                cellDynamic.contentView.frame = cellDynamic.bounds
             }
 
             context("cellForRow") {
@@ -166,23 +174,85 @@ class MutliColumnCellSpec: QuickSpec {
 
             context("columns width") {
 
+                it("static width") {
+
+                    // Static number of columns
+
+                    let relativeColumnWidth = floor((cellStatic.contentView.frame.size.width - 40.0 - 110.0 - 200.0)/2.0)
+                    let expectedColumnsWidth = [ 40.0, relativeColumnWidth, 110.0, 200.0, relativeColumnWidth ]
+
+                    try! cellStatic.customize(with: config)
+
+                    let result = cellStatic.contentView.subviews.map { $0.frame.size.width }
+
+                    expect(result).to(equal(expectedColumnsWidth))
+
+                    // Dynamic number of columns
+
+                    var columnsWidth:[CGFloat] = [ 40.0, 0.0, 110.0, 200.0, 0.0 ]
+                    columnsWidth.removeLast(config.columns.count - reducedConfig.columns.count)
+                    let relativeColumnWidth2 = (cellStatic.contentView.frame.size.width - columnsWidth.reduce(CGFloat(0.0)) { $0 + $1 })
+
+                    var expectedColumnsWidth2 = [ 40.0, relativeColumnWidth2, 110.0, 200.0, relativeColumnWidth2 ]
+                    expectedColumnsWidth2.removeLast(config.columns.count - reducedConfig.columns.count)
+
+                    try! cellDynamic.customize(with: reducedConfig)
+
+                    let result2 = cellDynamic.contentView.subviews.map { $0.frame.size.width }
+
+                    expect(result2).to(equal(expectedColumnsWidth2))
+                }
+
+                it("dynamic width") {
+
+                    // Width with initial size
+                    var width = cellStatic.contentView.frame.size.width
+
+                    var relativeColumnWidth = floor((width - 40.0 - 110.0 - 200.0)/2.0)
+                    var expectedColumnsWidth = [ 40.0, relativeColumnWidth, 110.0, 200.0, relativeColumnWidth ]
+
+                    try! cellStatic.customize(with: config)
+
+                    var result = cellStatic.contentView.subviews.map { $0.frame.size.width }
+
+                    expect(result).to(equal(expectedColumnsWidth))
+
+                    // Increased width of cellStatic
+                    width = 1200.0
+                    var frame = cellStatic.frame
+                    frame.size.width = width
+                    cellStatic.frame = frame
+                    cellStatic.contentView.frame = cellStatic.bounds
+
+                    relativeColumnWidth = floor((width - 40.0 - 110.0 - 200.0)/2.0)
+                    expectedColumnsWidth = [ 40.0, relativeColumnWidth, 110.0, 200.0, relativeColumnWidth ]
+
+                    try! cellStatic.customize(with: config)
+
+                    result = cellStatic.contentView.subviews.map { $0.frame.size.width }
+
+                    expect(result).to(equal(expectedColumnsWidth))
+
+                    // Decreased width of cell
+                    width = 400.0
+                    frame = cellStatic.frame
+                    frame.size.width = width
+                    cellStatic.frame = frame
+                    cellStatic.contentView.frame = cellStatic.bounds
+
+                    relativeColumnWidth = floor((width - 40.0 - 110.0 - 200.0)/2.0)
+                    expectedColumnsWidth = [ 40.0, relativeColumnWidth, 110.0, 200.0, relativeColumnWidth ]
+
+                    try! cellStatic.customize(with: config)
+
+                    result = cellStatic.contentView.subviews.map { $0.frame.size.width }
+
+                    expect(result).to(equal(expectedColumnsWidth))
+                }
             }
         }
     }
 
-    private func identifierForConfig(_ config: ETMultiColumnCell.Configuration) -> String {
-        
-        return config.columns.reduce(NSStringFromClass(ETMultiColumnCell.self) + "-") { result, current in
-
-            switch current.layout {
-            case let .fixed(width):
-                return result + "f\(width)"
-            case .relative():
-                return result + "r"
-            }
-        }
-    }
-    
     private func rand(withBounds: Int) -> Int {
         return Int(arc4random_uniform(UInt32(withBounds)))
     }
