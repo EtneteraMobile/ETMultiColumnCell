@@ -32,10 +32,17 @@ public extension ETMultiColumnCell {
             // MARK: - Variables
 
             let layout: Layout
-            let text: String
+            let attText: NSAttributedString
 
-            func test() {
 
+            init(layout: Layout, text: String) {
+                self.layout = layout
+                self.attText = NSAttributedString(string: text)
+            }
+
+            init(layout: Layout, attText: NSAttributedString) {
+                self.layout = layout
+                self.attText = attText
             }
 
             // MARK: - Inner
@@ -46,8 +53,8 @@ public extension ETMultiColumnCell {
             /// - fixed: fixed size column (size as parameter)
             public enum Layout {
 
-                case relative(edges:(inner: Edges?, outer: Edges?)?)
-                case fixed(width: CGFloat, edges: (inner: Edges?, outer: Edges?)?)
+                case relative(inner: Edges?)
+                case fixed(width: CGFloat, inner: Edges?)
 
                 // MARK: - Inner
 
@@ -79,7 +86,7 @@ public extension ETMultiColumnCell.Configuration {
         // Calculates fixed columns width sum
         var relativeColumnsCount = 0
         let fixedColumnsWidthSum = columns.reduce(CGFloat(0.0)) {
-            guard case let .fixed(width: w, edges: _) = $1.layout else {
+            guard case let .fixed(width: w, inner: _) = $1.layout else {
                 relativeColumnsCount += 1
                 return $0
             }
@@ -99,11 +106,11 @@ public extension ETMultiColumnCell.Configuration {
             switch $0.layout {
             case .relative:
                 width = relativeColumnWidth
-            case let .fixed(width: fixedWidth, edges: _):
+            case let .fixed(width: fixedWidth, inner: _):
                 width = fixedWidth
             }
 
-            let height = calculateHeight(withText: $0.text, inWidth: width)
+            let height = calculateHeight(withText: $0.attText, inWidth: width)
             return ($0, CGSize(width: width, height: height))
         }
 
@@ -112,12 +119,10 @@ public extension ETMultiColumnCell.Configuration {
 
     // MARK: - Helpers
 
-    private func calculateHeight(withText text: String, font: UIFont = UIFont.systemFont(ofSize: 12), inWidth width: CGFloat) -> CGFloat {
-
-        let layoutingString = NSAttributedString(string: text, attributes: [ NSFontAttributeName: font ])
+    private func calculateHeight(withText attText: NSAttributedString, inWidth width: CGFloat) -> CGFloat {
 
         // Calculates height manualy
-        let boundingRect = layoutingString.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        let boundingRect = attText.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
         
         return ceil(boundingRect.height)
     }

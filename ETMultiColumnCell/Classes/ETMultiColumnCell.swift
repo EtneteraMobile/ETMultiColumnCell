@@ -66,7 +66,7 @@ public class ETMultiColumnCell: UITableViewCell {
             guard let columnLabel = self.contentView.subviews[$0.offset] as? UILabel else { return }
 
             if withTextUpdate == true {
-                columnLabel.text = $0.element.column.text
+                columnLabel.attributedText = $0.element.column.attText
             }
 
             // Layouts

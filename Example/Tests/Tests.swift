@@ -34,20 +34,20 @@ class MutliColumnCellSpec: QuickSpec {
                 
                 // Creates basic configuration
                 config = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), attText: attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, inner: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), attText: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, inner: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, inner: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hello there!")
                     ])
 
                 // Creates edited basic configuration
                 editedConfig = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: nil), attText: attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hi!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: nil), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, inner: nil), attText: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hi!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, inner: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, inner: nil), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hello there!")
                     ])
 
                 // - 1 to at least one element will exist
@@ -147,7 +147,7 @@ class MutliColumnCellSpec: QuickSpec {
                     let cellWidth = cellStatic.frame.size.width
                     let relativeSpace = cellWidth - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
                     let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
-                    let layoutingString = NSAttributedString(string: "Hello there!\nwith multiline text that is too long to be layouted on one line", attributes: [ NSFontAttributeName: UIFont.systemFont(ofSize: 12) ])
+                    let layoutingString = self.attributedText
 
                     // Calculates height manualy
                     let boundingRect1 = layoutingString.boundingRect(with: CGSize(width: relativeColumn, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
