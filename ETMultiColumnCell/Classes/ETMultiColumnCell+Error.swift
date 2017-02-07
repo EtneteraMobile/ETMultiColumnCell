@@ -10,9 +10,9 @@ import Foundation
 
 extension ETMultiColumnCell {
 
-    enum Error: Swift.Error {
+    public enum Error: Swift.Error {
         case columnsCountMissmatch(description: String)
         case invalidWidth()
-        case insufficientWidth()
+        case insufficientWidth(description: String)
     }
 }

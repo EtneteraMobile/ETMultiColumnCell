@@ -8,7 +8,6 @@ class MutliColumnCellSpec: QuickSpec {
     override func spec() {
 
         // FIXME: Missing implementation
-        // * Attributed string as text
         // * Padding inside of column
         // * Space between columns
         // * Separator (width, color)
@@ -24,6 +23,12 @@ class MutliColumnCellSpec: QuickSpec {
             // Basic configuration.
             var config: ETMultiColumnCell.Configuration!
 
+            // Config with non zero edges.
+            var configWithNonZeroEdges: ETMultiColumnCell.Configuration!
+
+            // Config with non zero edges.
+            var configWithBigEdges: ETMultiColumnCell.Configuration!
+
             // Edited basic configuration for height calculations.
             var editedConfig: ETMultiColumnCell.Configuration!
 
@@ -34,20 +39,38 @@ class MutliColumnCellSpec: QuickSpec {
                 
                 // Creates basic configuration
                 config = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, inner: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), attText: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, inner: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, inner: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ])
+
+                // Creates basic configuration
+                configWithNonZeroEdges = ETMultiColumnCell.Configuration(columns: [
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ])
+
+                // Creates basic configuration
+                configWithBigEdges = ETMultiColumnCell.Configuration(columns: [
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 100)), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
                     ])
 
                 // Creates edited basic configuration
                 editedConfig = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, inner: nil), attText: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hi!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, inner: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, inner: nil), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(inner: nil), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .zero), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hi!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
                     ])
 
                 // - 1 to at least one element will exist
@@ -100,21 +123,63 @@ class MutliColumnCellSpec: QuickSpec {
 
             context("willDisplayCell") {
 
-                it("customize(with:)") {
+                context("content") {
 
-                    let subviews = cellStatic.contentView.subviews as! [UILabel]
+                    it("customize(with:)") {
 
-                    // Prepares cell
-                    try! cellStatic.customize(with: config)
+                        let subviews = cellStatic.contentView.subviews as! [UILabel]
 
-                    expect(subviews[0].text).to(equal("Hello there!"))
-                    expect(subviews[1].attributedText).to(equal(self.attributedText))
+                        // Prepares cell
+                        try! cellStatic.customize(with: config)
 
-                    // Customizes with new content
-                    try? cellStatic.customize(with: editedConfig)
+                        expect(subviews[0].text).to(equal("Hello there!"))
+                        expect(subviews[1].attributedText).to(equal(self.attributedText))
 
-                    expect(subviews[0].attributedText).to(equal(self.attributedText))
-                    expect(subviews[1].text).to(equal("Hi!"))
+                        // Customizes with new content
+                        try? cellStatic.customize(with: editedConfig)
+
+                        expect(subviews[0].attributedText).to(equal(self.attributedText))
+                        expect(subviews[1].text).to(equal("Hi!"))
+                    }
+                }
+
+                context("label position") {
+
+                    it("customize(with:)") {
+
+                        cellStatic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
+
+                        // Updates cell
+                        try! cellStatic.customize(with: configWithNonZeroEdges)
+
+                        let subviews = cellStatic.contentView.subviews
+
+                        let relativeSpace = cellStatic.frame.width - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
+                        let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
+
+//                        subview:  (0.0, 0.0, 40.0, 86.0)
+                        expect(subviews[0].frame.width).to(equal(40))
+                        expect(subviews[0].frame.origin.x).to(equal(0))
+//                        subview:  (40.0, 0.0, 125.0, 318.0
+                        expect(subviews[1].frame.width).to(equal(relativeColumn - 10 - 10))
+                        expect(subviews[1].frame.origin.x).to(equal(40 + 10))
+//                        subview:  (165.0, 0.0, 110.0, 14.0)
+                        expect(subviews[2].frame.width).to(equal(110))
+                        expect(subviews[2].frame.origin.x).to(equal(40 + relativeColumn))
+//                        subview:  (275.0, 0.0, 200.0, 14.0)
+                        expect(subviews[3].frame.width).to(equal(200))
+                        expect(subviews[3].frame.origin.x).to(equal(40 + relativeColumn + 110))
+//                        subview:  (475.0, 0.0, 125.0, 14.0)
+                        expect(subviews[4].frame.width).to(equal(relativeColumn))
+                        expect(subviews[4].frame.origin.x).to(equal(40 + relativeColumn + 110 + 200))
+
+
+                        cellStatic.contentView.subviews.forEach {view in
+                            print("subview: ", view.frame)
+                        }
+                        
+//                        expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
+                    }
                 }
 
                 context("errors") {
@@ -129,44 +194,100 @@ class MutliColumnCellSpec: QuickSpec {
                     }
 
                     it("invalid width") {
+
                         cellStatic.frame.size.width = 0.0
                         expect{ try cellStatic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.invalidWidth()))
                     }
 
                     it("insufficient width") {
+
                         cellStatic.frame.size.width = 200.0
-                        expect{ try cellStatic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.insufficientWidth()))
+                        let error = "Sum width of fixed colums is longer than column width (fixedColumnsWidthSum=350.0, columnWidth=200.0)."
+                        expect{ try cellStatic.customize(with: config) }.to(throwError(ETMultiColumnCell.Error.insufficientWidth(description: error)))
+                    }
+
+                    it("insufficient width - big edges") {
+
+                        cellStatic.frame.size.width = 200.0
+                        let error = "Horizontal edges are longer than cell width (horizontalEdges=110.0, columnWidth=40.0)."
+                        expect{ try cellStatic.customize(with: configWithBigEdges) }.to(throwError(ETMultiColumnCell.Error.insufficientWidth(description: error)))
                     }
                 }
             }
 
             context("height") {
 
-                it("static height(with:width:)") {
+                context("zero edges") {
 
-                    let cellWidth = cellStatic.frame.size.width
-                    let relativeSpace = cellWidth - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
-                    let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
-                    let layoutingString = self.attributedText
+                    it("static height(with:width:)") {
 
-                    // Calculates height manualy
-                    let boundingRect1 = layoutingString.boundingRect(with: CGSize(width: relativeColumn, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+                        let cellWidth = cellStatic.frame.size.width
+                        let relativeSpace = cellWidth - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
+                        let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
+                        let layoutingString = self.attributedText
 
-                    // Cell calculated height
-                    let cellHeight1 = ETMultiColumnCell.height(with: config, width: cellWidth)
+                        // Calculates height manualy
+                        let boundingRect1 = layoutingString.boundingRect(with: CGSize(width: relativeColumn, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
-                    expect(cellHeight1).to(equal(ceil(boundingRect1.size.height)))
+                        // Cell calculated height
+                        let cellHeight1 = try! ETMultiColumnCell.height(with: config, width: cellWidth)
 
-                    // Updates cell
-                    try! cellStatic.customize(with: editedConfig)
+                        expect(cellHeight1).to(equal(ceil(boundingRect1.size.height)))
 
-                    // Calculates height manualy
-                    let boundingRect2 = layoutingString.boundingRect(with: CGSize(width: 40.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+                        // Updates cell
+                        try! cellStatic.customize(with: editedConfig)
 
-                    // Cell calculated height
-                    let cellHeight2 = ETMultiColumnCell.height(with: editedConfig, width: cellWidth)
+                        // Calculates height manualy
+                        let boundingRect2 = layoutingString.boundingRect(with: CGSize(width: 40.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
-                    expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
+                        // Cell calculated height
+                        let cellHeight2 = try! ETMultiColumnCell.height(with: editedConfig, width: cellWidth)
+
+                        expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
+                    }
+                }
+
+                context("non zero edges") {
+
+                    it("static height(with:width:)") {
+
+                        let cellWidth = cellStatic.frame.size.width
+                        let relativeSpace = cellWidth - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
+                        let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
+                        let edgesHorizontal = CGFloat(10 + 10) // left + right
+                        let edgesVertical = CGFloat(15 + 15)
+                        let columnContentWidth = relativeColumn - edgesHorizontal // Remaining space minus left right edges
+                        let layoutingString = self.attributedText
+
+                        // Calculates height manualy
+                        let boundingRect1 = layoutingString.boundingRect(with: CGSize(width: columnContentWidth, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+
+                        // Cell calculated height
+                        let cellHeight1 = try! ETMultiColumnCell.height(with: configWithNonZeroEdges, width: cellWidth)
+
+                        expect(cellHeight1).to(equal(ceil(boundingRect1.size.height + edgesVertical)))
+
+                        // Updates cell
+                        try! cellStatic.customize(with: editedConfig)
+
+                        // Calculates height manualy
+                        let boundingRect2 = layoutingString.boundingRect(with: CGSize(width: 40.0, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+
+                        // Cell calculated height
+                        let cellHeight2 = try! ETMultiColumnCell.height(with: editedConfig, width: cellWidth)
+                        
+                        expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
+                    }
+
+                    context("errors") {
+                        it("insufficient width") {
+                            let cellWidth = cellStatic.frame.size.width
+
+                            // Cell calculated height
+                            let error = "Horizontal edges are longer than cell width (horizontalEdges=110.0, columnWidth=40.0)."
+                            expect{ try ETMultiColumnCell.height(with: configWithBigEdges, width: cellWidth) }.to(throwError(ETMultiColumnCell.Error.insufficientWidth(description: error)))
+                        }
+                    }
                 }
             }
 

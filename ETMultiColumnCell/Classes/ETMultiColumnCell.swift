@@ -69,6 +69,10 @@ public class ETMultiColumnCell: UITableViewCell {
                 columnLabel.attributedText = $0.element.column.attText
             }
 
+            switch $0.element.edges {
+                // TODO
+            }
+
             // Layouts
             columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0.0), size: $0.element.size)
             lastRightEdge = columnLabel.frame.origin.x + columnLabel.frame.size.width
@@ -115,11 +119,12 @@ public extension ETMultiColumnCell {
     ///
     /// - Parameter config: cell configuration
     /// - Returns: height of cell for given configuration
-    public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) -> CGFloat {
+    public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) throws -> CGFloat {
 
-        let maxTouple = try! config.columnsWithSizes(inWidth: width).max { lhs, rhs -> Bool in
+        let maxTouple = try config.columnsWithSizes(inWidth: width).max { lhs, rhs -> Bool in
             return lhs.size.height < rhs.size.height
         }
+
         return maxTouple?.size.height ?? 0.0
     }
 }
