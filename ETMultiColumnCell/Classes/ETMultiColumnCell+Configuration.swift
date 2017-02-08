@@ -24,6 +24,12 @@ public extension ETMultiColumnCell {
 
         // MARK: - Inner
 
+        // MARK: - Initialization
+
+        public init(columns: [Column]) {
+            self.columns = columns
+        }
+
         // MARK: Column configuration
 
         /// Column configuration structure of ETMultiColumnCell
@@ -34,12 +40,12 @@ public extension ETMultiColumnCell {
             let layout: Layout
             let attText: NSAttributedString
 
-            init(layout: Layout, text: String) {
+            public init(layout: Layout, text: String) {
                 self.layout = layout
                 self.attText = NSAttributedString(string: text)
             }
 
-            init(layout: Layout, text: NSAttributedString) {
+            public  init(layout: Layout, text: NSAttributedString) {
                 self.layout = layout
                 self.attText = text
             }
@@ -121,8 +127,6 @@ public extension ETMultiColumnCell {
                     }
                 }
             }
-
-
         }
     }
 }

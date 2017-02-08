@@ -2,7 +2,7 @@
 
 import Quick
 import Nimble
-@testable import ETMultiColumnCell
+import ETMultiColumnCell
 
 class MutliColumnCellSpec: QuickSpec {
     override func spec() {
@@ -65,7 +65,7 @@ class MutliColumnCellSpec: QuickSpec {
                     ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
-                // Creates configuration with non to big edges
+                // Creates configuration with to big edges
                 configWithBigEdges = ETMultiColumnCell.Configuration(columns: [
                     ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 100)), text: "Hello there!"),
                     ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: self.attributedText),
