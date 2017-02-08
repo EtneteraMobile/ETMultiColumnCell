@@ -8,9 +8,7 @@ class MutliColumnCellSpec: QuickSpec {
     override func spec() {
 
         // FIXME: Missing implementation
-        // * Padding inside of column
-        // * Space between columns
-        // * Separator (width, color)
+        // * Separator (width, color) border tests
 
         describe("multiColumnCell") {
 
@@ -22,6 +20,9 @@ class MutliColumnCellSpec: QuickSpec {
 
             // Basic configuration.
             var config: ETMultiColumnCell.Configuration!
+
+            // Config with borders (separators).
+            var configWithBorders: ETMultiColumnCell.Configuration!
 
             // Config with non zero edges.
             var configWithNonZeroEdges: ETMultiColumnCell.Configuration!
@@ -39,38 +40,47 @@ class MutliColumnCellSpec: QuickSpec {
                 
                 // Creates basic configuration
                 config = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
-                // Creates basic configuration
+                // Creates configuration with borders
+                configWithBorders = ETMultiColumnCell.Configuration(columns: [
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black)), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, border: .left(width: 1, color: .black)), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, border: .left(width: 1, color: .black)), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
+                    ])
+
+                // Creates configuration with edges
                 configWithNonZeroEdges = ETMultiColumnCell.Configuration(columns: [
                     ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: "Hello there!"),
                     ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
-                // Creates basic configuration
+                // Creates configuration with non to big edges
                 configWithBigEdges = ETMultiColumnCell.Configuration(columns: [
                     ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 100)), text: "Hello there!"),
                     ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
                 // Creates edited basic configuration
                 editedConfig = ETMultiColumnCell.Configuration(columns: [
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .zero), text: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hi!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, edges: .zero), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .zero), text: "Hello there!")
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hi!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
                 // - 1 to at least one element will exist
@@ -157,28 +167,56 @@ class MutliColumnCellSpec: QuickSpec {
                         let relativeSpace = cellStatic.frame.width - 40.0 - 110.0 - 200.0 // Cell width minus fixed cells width
                         let relativeColumn = floor(relativeSpace / 2.0) // Remaining space is distributed equally to relative cells
 
-//                        subview:  (0.0, 0.0, 40.0, 86.0)
-                        expect(subviews[0].frame.width).to(equal(40))
-                        expect(subviews[0].frame.origin.x).to(equal(0))
-//                        subview:  (40.0, 0.0, 125.0, 318.0
+                        expect(subviews[0].frame.width).to(equal(20))
+                        expect(subviews[0].frame.origin.x).to(equal(10))
+
                         expect(subviews[1].frame.width).to(equal(relativeColumn - 10 - 10))
                         expect(subviews[1].frame.origin.x).to(equal(40 + 10))
-//                        subview:  (165.0, 0.0, 110.0, 14.0)
+
                         expect(subviews[2].frame.width).to(equal(110))
                         expect(subviews[2].frame.origin.x).to(equal(40 + relativeColumn))
-//                        subview:  (275.0, 0.0, 200.0, 14.0)
+
                         expect(subviews[3].frame.width).to(equal(200))
                         expect(subviews[3].frame.origin.x).to(equal(40 + relativeColumn + 110))
-//                        subview:  (475.0, 0.0, 125.0, 14.0)
+
                         expect(subviews[4].frame.width).to(equal(relativeColumn))
                         expect(subviews[4].frame.origin.x).to(equal(40 + relativeColumn + 110 + 200))
+                    }
+                }
 
+                context("border") {
 
-                        cellStatic.contentView.subviews.forEach {view in
-                            print("subview: ", view.frame)
-                        }
-                        
-//                        expect(cellHeight2).to(equal(ceil(boundingRect2.size.height)))
+                    it("customize(with:)") {
+                        cellStatic.frame = CGRect(origin: .zero, size: CGSize(width: 600.0, height: 44.0))
+
+                        let cellHeight = try! ETMultiColumnCell.height(with: editedConfig, width: cellStatic.frame.width)
+
+                        // Updates cell
+                        try! cellStatic.customize(with: configWithBorders)
+
+                        let calcPath = UIBezierPath()
+
+                        calcPath.move(to: CGPoint(x: 40, y: 0))
+                        calcPath.addLine(to: CGPoint(x: 40, y: cellHeight))
+
+                        calcPath.move(to: CGPoint(x: 110, y: 0))
+                        calcPath.addLine(to: CGPoint(x: 110, y: cellHeight))
+
+                        calcPath.move(to: CGPoint(x: 200, y: 0))
+                        calcPath.addLine(to: CGPoint(x: 200, y: cellHeight))
+
+                        calcPath.lineWidth = 1
+
+                        let calcLayer = CAShapeLayer()
+                        calcLayer.fillColor = nil
+                        calcLayer.strokeColor = UIColor.black.cgColor
+                        calcLayer.path = calcPath.cgPath
+
+                        let borderLayers = cellStatic.layer.sublayers![1].sublayers as! [CAShapeLayer]
+
+                        expect(borderLayers.count).to(equal(configWithBorders.columns.count))
+
+                        // FIXME: write test - paths equals
                     }
                 }
 

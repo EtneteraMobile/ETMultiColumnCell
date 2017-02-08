@@ -17,6 +17,7 @@ public class ETMultiColumnCell: UITableViewCell {
     
     /// Cell configuration structure
     private var config: Configuration
+    private var borderLayer: CALayer
     
     // MARK: - Initialization
     
@@ -27,10 +28,13 @@ public class ETMultiColumnCell: UITableViewCell {
     public init(with config: Configuration) {
 
         self.config = config
+        borderLayer = CALayer()
 
         super.init(style: .default, reuseIdentifier: ETMultiColumnCell.identifier(with: config))
         
         setupSubviews()
+        layer.addSublayer(borderLayer)
+        borderLayer.masksToBounds = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -48,7 +52,8 @@ public class ETMultiColumnCell: UITableViewCell {
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
         for _ in (0..<config.columns.count) {
-            self.contentView.addSubview(UILabel())
+            contentView.addSubview(UILabel())
+            borderLayer.addSublayer(CALayer())
         }
     }
 
@@ -60,6 +65,7 @@ public class ETMultiColumnCell: UITableViewCell {
 
         let columnsWithSizes = try self.config.columnsWithSizes(inWidth: frame.size.width)
 
+
         columnsWithSizes.enumerated().forEach {
 
             guard $0.offset < subviewsCount else { return }
@@ -69,13 +75,21 @@ public class ETMultiColumnCell: UITableViewCell {
                 columnLabel.attributedText = $0.element.column.attText
             }
 
-            switch $0.element.edges {
-                // TODO
+            let edgeInsets = $0.element.edges.insets()
+
+            switch $0.element.border {
+            case let .left(width: width, color: color):
+                let size = CGSize(width: $0.element.size.width, height: $0.element.size.height + 2 * width)
+                layer.frame = CGRect(origin: CGPoint(x: lastRightEdge + width, y: -width), size: size)
+                layer.borderWidth = width
+            case .none: break
             }
 
+            let size = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
+
             // Layouts
-            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0.0), size: $0.element.size)
-            lastRightEdge = columnLabel.frame.origin.x + columnLabel.frame.size.width
+            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: size)
+            lastRightEdge = columnLabel.frame.origin.x - edgeInsets.left  + columnLabel.frame.size.width + edgeInsets.horizontal()
         }
     }
 
