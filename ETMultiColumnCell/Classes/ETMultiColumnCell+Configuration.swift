@@ -37,8 +37,8 @@ public extension ETMultiColumnCell {
 
             // MARK: - Variables
 
-            let layout: Layout
-            let attText: NSAttributedString
+            public let layout: Layout
+            public let attText: NSAttributedString
 
             public init(layout: Layout, text: String) {
                 self.layout = layout
@@ -58,14 +58,14 @@ public extension ETMultiColumnCell {
             /// - fixed: fixed size column (size as parameter)
             public enum Layout {
 
-                case rel(border: Border, edges: Edges)
-                case fix(width: CGFloat, border: Border, edges: Edges)
+                case rel(border: [Border], edges: Edges)
+                case fix(width: CGFloat, border: [Border], edges: Edges)
 
-                public static func relative(border: Border = .none, edges: Edges = .zero) -> Layout {
+                public static func relative(border: [Border] = [], edges: Edges = .zero) -> Layout {
                     return .rel(border: border, edges: edges)
                 }
 
-                public static func fixed(width: CGFloat, border: Border = .none, edges: Edges = .zero) -> Layout {
+                public static func fixed(width: CGFloat, border: [Border] = [], edges: Edges = .zero) -> Layout {
                     return .fix(width: width, border: border, edges: edges)
                 }
 
@@ -83,7 +83,7 @@ public extension ETMultiColumnCell {
 
                 public enum Border {
                     case left(width: CGFloat, color: UIColor)
-                    case none
+                    case bottom(width: CGFloat, color: UIColor)
                 }
 
                 public enum Edges {
@@ -133,7 +133,7 @@ public extension ETMultiColumnCell {
 
 public extension ETMultiColumnCell.Configuration {
 
-    internal func columnsWithSizes(inWidth width: CGFloat) throws -> [(column: ETMultiColumnCell.Configuration.Column, size: CGSize, edges: Column.Layout.Edges, border: Column.Layout.Border)] {
+    internal func columnsWithSizes(inWidth width: CGFloat) throws -> [(column: ETMultiColumnCell.Configuration.Column, size: CGSize, edges: Column.Layout.Edges, border: [Column.Layout.Border])] {
 
         // Is width valid
         guard width > 0.0 else { throw ETMultiColumnCell.Error.invalidWidth() }
@@ -157,11 +157,11 @@ public extension ETMultiColumnCell.Configuration {
         let relativeColumnWidth = floor(remainingWidth / CGFloat(relativeColumnsCount))
 
         // Calculates columns frame
-        let result:[(Column, CGSize, Column.Layout.Edges, Column.Layout.Border)] = try columns.map {
+        let result:[(Column, CGSize, Column.Layout.Edges, [Column.Layout.Border])] = try columns.map {
 
             let edges: Column.Layout.Edges
             let width: CGFloat
-            let border: Column.Layout.Border
+            let border: [Column.Layout.Border]
 
             switch $0.layout {
             case let .rel(border: relativeBorder, edges: relativeEdges):
@@ -192,6 +192,7 @@ public extension ETMultiColumnCell.Configuration {
     private func calculateHeight(withText attText: NSAttributedString, inWidth width: CGFloat) -> CGFloat {
 
         // Calculates height manualy
+
         let boundingRect = attText.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
         
         return ceil(boundingRect.height)

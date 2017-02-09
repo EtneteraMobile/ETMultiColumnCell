@@ -13,29 +13,36 @@ class ViewController: UITableViewController {
 
     let cellConfigs = [
         ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 50.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 50.0), text: "Hello there!"),
-        ]),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Hello there!"),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 3, color: .red)], edges: .inner(top: 15, left: 50, bottom: 15, right: 10)), text: ViewController.attributedText),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)]), text: "Hello there!"),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: .inner(top: 30, left: 0, bottom: 15, right: 0)), text: "Hello there!"),
+            ]),
+
+        ETMultiColumnCell.Configuration(columns: [
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Border!"),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 3, color: .red)], edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)]), text: "Hello there!"),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: .inner(top: 30, left: 0, bottom: 15, right: 0)), text: "Hello there!"),
+            ]),
 
         ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 80.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black)), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0, border: .left(width: 1, color: .black)), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black)), text: "Hello there!")
-        ]),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: ViewController.attributedText),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Hello there!"),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
+            ]),
 
         ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 0)), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black), edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
-        ]),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
+            ]),
 
         ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 5)), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black), edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black)), text: "Hello there!")
-        ])
+            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
+            ])
     ]
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,11 +68,11 @@ class ViewController: UITableViewController {
         let paragraphStyleRight = NSMutableParagraphStyle()
         paragraphStyleRight.alignment = .right
 
-        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight])
-        r.append(NSAttributedString(string: "\n"))
+        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)])
+        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]))
         r.append(NSAttributedString(string: "center jumbotron", attributes: [NSParagraphStyleAttributeName: paragraphStyleCenter, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
-        r.append(NSAttributedString(string: "\n"))
-        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
+        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0)]))
+        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)]))
 
         return r
     }

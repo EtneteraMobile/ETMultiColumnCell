@@ -17,7 +17,8 @@ public class ETMultiColumnCell: UITableViewCell {
     
     /// Cell configuration structure
     private var config: Configuration
-    private var borderLayer: CALayer
+    private let borderLayer: CALayer
+    private let path = UIBezierPath()
     
     // MARK: - Initialization
     
@@ -34,7 +35,7 @@ public class ETMultiColumnCell: UITableViewCell {
         
         setupSubviews()
         layer.addSublayer(borderLayer)
-        borderLayer.masksToBounds = true
+//        borderLayer.masksToBounds = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -52,8 +53,10 @@ public class ETMultiColumnCell: UITableViewCell {
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
         for _ in (0..<config.columns.count) {
-            contentView.addSubview(UILabel())
-            borderLayer.addSublayer(CALayer())
+            let label = UILabel()
+            label.numberOfLines = 0
+            contentView.addSubview(label)
+            borderLayer.addSublayer(CAShapeLayer())
         }
     }
 
@@ -65,6 +68,7 @@ public class ETMultiColumnCell: UITableViewCell {
 
         let columnsWithSizes = try self.config.columnsWithSizes(inWidth: frame.size.width)
 
+        borderLayer.frame = bounds
 
         columnsWithSizes.enumerated().forEach {
 
@@ -77,26 +81,62 @@ public class ETMultiColumnCell: UITableViewCell {
 
             let edgeInsets = $0.element.edges.insets()
 
-            switch $0.element.border {
-            case let .left(width: width, color: color):
-                let size = CGSize(width: $0.element.size.width, height: $0.element.size.height + 2 * width)
-                layer.frame = CGRect(origin: CGPoint(x: lastRightEdge + width, y: -width), size: size)
-                layer.borderWidth = width
-            case .none: break
+            let layer = borderLayer.sublayers?[$0.offset]
+
+            let columnSize = CGSize(width: $0.element.size.width, height: frame.height)
+            layer?.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0), size: columnSize)
+
+            if $0.element.border.count == 0 {
+                hideBorders(column: layer)
             }
 
-            let size = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
+            $0.element.border.forEach {
+                switch $0 {
+                case let .left(width: borderWidth, color: borderColor):
+                    showLeftBorder(column: layer, width: borderWidth, color: borderColor)
+                case let .bottom(width: borderWidth, color: borderColor):
+                    fatalError("not implemented yet") // WARNING: implement functionality (+ fix showLeftBorder)
+                }
+            }
+
+            let contentSize = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
 
             // Layouts
-            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: size)
+            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: contentSize)
             lastRightEdge = columnLabel.frame.origin.x - edgeInsets.left  + columnLabel.frame.size.width + edgeInsets.horizontal()
         }
     }
 
+
+    // WARNING: This implementation can only draw one border (color, width) to one column!
+    /// Will show left border with given properties (color, width)
+    ///
+    /// - Parameters:
+    ///   - layer: expects CAShapeLayer
+    ///   - width: border width
+    ///   - color: border color
+    private func showLeftBorder(column layer: CALayer?, width: CGFloat, color: UIColor) {
+        guard let sublayer = layer as? CAShapeLayer else { return }
+
+        path.removeAllPoints()
+        path.move(to: .zero)
+        path.addLine(to: CGPoint(x: 0, y: frame.height))
+
+        sublayer.path = path.cgPath
+        sublayer.strokeColor = color.cgColor
+        sublayer.lineWidth = width
+    }
+
+    private func hideBorders(column layer: CALayer?) {
+        guard let sublayer = layer as? CAShapeLayer else { return }
+
+        sublayer.path = nil
+    }
+
     // MARK: - Actions
-    
+
     // MARK: public
-    
+
     /// Customize cell with content. When layout missmatch configurations occurs, Error is thrown.
     ///
     /// - Parameter config: cell configuration

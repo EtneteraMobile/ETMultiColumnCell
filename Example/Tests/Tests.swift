@@ -9,6 +9,7 @@ class MutliColumnCellSpec: QuickSpec {
 
         // FIXME: Missing implementation
         // * Separator (width, color) border tests
+        // * Attributed text withouth font defined doesnt work yet
 
         describe("multiColumnCell") {
 
@@ -50,9 +51,9 @@ class MutliColumnCellSpec: QuickSpec {
                 // Creates configuration with borders
                 configWithBorders = ETMultiColumnCell.Configuration(columns: [
                     ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(border: .left(width: 1, color: .black)), text: self.attributedText),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, border: .left(width: 1, color: .black)), text: "Hello there!"),
-                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, border: .left(width: 1, color: .black)), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 1, color: .black)]), text: self.attributedText),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 110.0, border: [.left(width: 1, color: .black)]), text: "Hello there!"),
+                    ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 200.0, border: [.left(width: 1, color: .black)]), text: "Hello there!"),
                     ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
                     ])
 
@@ -423,11 +424,11 @@ class MutliColumnCellSpec: QuickSpec {
         let paragraphStyleRight = NSMutableParagraphStyle()
         paragraphStyleRight.alignment = .right
 
-        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight])
-        r.append(NSAttributedString(string: "\n"))
+        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)])
+        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]))
         r.append(NSAttributedString(string: "center jumbotron", attributes: [NSParagraphStyleAttributeName: paragraphStyleCenter, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
-        r.append(NSAttributedString(string: "\n"))
-        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
+        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0)]))
+        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)]))
 
         return r
     }
