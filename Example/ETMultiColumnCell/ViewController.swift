@@ -228,9 +228,11 @@ class ViewController: UITableViewController {
             ]))
 
         for i in 0...1000 {
+            let customViewColor = UIColor.init(red: CGFloat.random(lower: 0.2, upper: 0.8), green: CGFloat.random(lower: 0.2, upper: 0.8), blue: CGFloat.random(lower: 0.2, upper: 0.8), alpha: 1)
+
             let cell = ETMultiColumnCell.Configuration(columns: [
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                       content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "\(i).", backgroundColor: .red, textColor: .white))),
+                                                       content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white))),
                 ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "\(String.random(length: Int.random(lower: 4, upper: 8))) \(String.random(length: Int.random(lower: 2, upper: 5)))"),
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)], edges: padding), text: Int.random(lower: 20, upper: 100).toString()),
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
