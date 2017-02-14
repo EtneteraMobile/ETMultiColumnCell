@@ -38,16 +38,25 @@ public extension ETMultiColumnCell {
             // MARK: - Variables
 
             public let layout: Layout
-            public let attText: NSAttributedString
+            public let attText: NSAttributedString?
+            public let contentViewProvider: ContentViewProvider?
 
-            public init(layout: Layout, text: String) {
+            public init(layout: Layout, text: String, font: UIFont = UIFont.boldSystemFont(ofSize: 10.0)) {
                 self.layout = layout
-                self.attText = NSAttributedString(string: text)
+                self.attText = NSAttributedString(string: text, attributes: [NSFontAttributeName: font])
+                self.contentViewProvider = nil
             }
 
             public  init(layout: Layout, text: NSAttributedString) {
                 self.layout = layout
                 self.attText = text
+                self.contentViewProvider = nil
+            }
+
+            public  init(layout: Layout, content viewProvider: ContentViewProvider) {
+                self.layout = layout
+                self.contentViewProvider = viewProvider
+                self.attText = nil
             }
 
             // MARK: - Inner
@@ -91,6 +100,17 @@ public extension ETMultiColumnCell {
                     case inner(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat)
                     case zero
 
+                    public static func insets(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Edges {
+                        return .inner(top: top, left: left, bottom: bottom, right: right)
+                    }
+
+                    public static func insets(vertical: CGFloat = 0, horizontal: CGFloat = 0) -> Edges {
+                        return .inner(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
+                    }
+
+                    public static func insets(all: CGFloat = 0) -> Edges {
+                        return .inner(top: all, left: all, bottom: all, right: all)
+                    }
 
                     /// Returns `EdgeInset` generated from self
                     ///
@@ -180,7 +200,17 @@ public extension ETMultiColumnCell.Configuration {
             let inWidth = width - horizontalEdges
             guard inWidth > 0 else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Horizontal edges are longer than cell width (horizontalEdges=\(horizontalEdges), columnWidth=\(width)).") }
 
-            let height = calculateHeight(withText: $0.attText, inWidth: width - horizontalEdges)
+            let height: CGFloat
+
+            if let text = $0.attText {
+                height = calculateHeight(withText: text, inWidth: width - horizontalEdges)
+            } else if let provider = $0.contentViewProvider {
+                height = provider.viewSize().height
+                guard provider.viewSize().width <= inWidth else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(provider.viewSize().width), inWidth=\(inWidth)).") }
+            } else {
+                height = 0
+            }
+
             return ($0, CGSize(width: width, height: height + verticalEdges), edges, border)
         }
 

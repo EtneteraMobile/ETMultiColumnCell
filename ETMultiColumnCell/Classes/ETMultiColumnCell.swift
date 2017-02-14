@@ -47,15 +47,25 @@ public class ETMultiColumnCell: UITableViewCell {
     public override func layoutSubviews() {
         super.layoutSubviews()
 
+        guard frame != .zero else {
+            return
+        }
+        
         try? customizeColumns(withTextUpdate: false)
     }
 
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
-        for _ in (0..<config.columns.count) {
-            let label = UILabel()
-            label.numberOfLines = 0
-            contentView.addSubview(label)
+
+        config.columns.forEach { columnConfig in
+            if let provider = columnConfig.contentViewProvider {
+                contentView.addSubview(provider.makeView())
+            } else {
+                let label = UILabel()
+                label.numberOfLines = 0
+                contentView.addSubview(label)
+            }
+
             borderLayer.addSublayer(CAShapeLayer())
         }
     }
@@ -66,17 +76,22 @@ public class ETMultiColumnCell: UITableViewCell {
         let subviewsCount = contentView.subviews.count
         var lastRightEdge: CGFloat = 0.0
 
-        let columnsWithSizes = try self.config.columnsWithSizes(inWidth: frame.size.width)
+        let columnsWithSizes = try config.columnsWithSizes(inWidth: frame.size.width)
 
         borderLayer.frame = bounds
 
         columnsWithSizes.enumerated().forEach {
 
             guard $0.offset < subviewsCount else { return }
-            guard let columnLabel = self.contentView.subviews[$0.offset] as? UILabel else { return }
 
-            if withTextUpdate == true {
-                columnLabel.attributedText = $0.element.column.attText
+            let subview = self.contentView.subviews[$0.offset]
+
+            if let columnLabel = subview as? UILabel {
+                if withTextUpdate {
+                    columnLabel.attributedText = $0.element.column.attText
+                }
+            } else if let provider = config.columns[$0.offset].contentViewProvider {
+                try? provider.customize(view: subview)
             }
 
             let edgeInsets = $0.element.edges.insets()
@@ -99,11 +114,20 @@ public class ETMultiColumnCell: UITableViewCell {
                 }
             }
 
-            let contentSize = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
+            let contentSize: CGSize
+
+            if let provider = config.columns[$0.offset].contentViewProvider {
+                contentSize = provider.viewSize() // TODO: check size is sufficient!
+            } else {
+                contentSize = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
+            }
 
             // Layouts
-            columnLabel.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: contentSize)
-            lastRightEdge = columnLabel.frame.origin.x - edgeInsets.left  + columnLabel.frame.size.width + edgeInsets.horizontal()
+            subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: contentSize)
+
+            let columnWidth = $0.element.size.width
+
+            lastRightEdge += columnWidth
         }
     }
 
@@ -166,7 +190,16 @@ public extension ETMultiColumnCell {
     /// - Returns: unique string - hash from cell configuaration layout parameters
     public static func identifier(with config: ETMultiColumnCell.Configuration) -> String {
 
-        return NSStringFromClass(ETMultiColumnCell.self) + "-\(config.columns.count)"
+        var customViewsIdentifier = ""
+
+        config.columns.enumerated().forEach { (index, column) in
+            if let customViewIdentifier = column.contentViewProvider?.viewIdentifier() {
+                customViewsIdentifier.append("\(index)")
+                customViewsIdentifier.append(customViewIdentifier)
+            }
+        }
+
+        return NSStringFromClass(ETMultiColumnCell.self) + "-\(config.columns.count)" + customViewsIdentifier
     }
 
     /// Returns height of cell for given configuration
