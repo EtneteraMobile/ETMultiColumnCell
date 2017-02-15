@@ -58,8 +58,8 @@ public class ETMultiColumnCell: UITableViewCell {
     private func setupSubviews() {
 
         config.columns.forEach { columnConfig in
-            if let provider = columnConfig.contentViewProvider {
-                contentView.addSubview(provider.makeView())
+            if let provider = columnConfig.viewProvider {
+                contentView.addSubview(provider.create())
             } else {
                 let label = UILabel()
                 label.numberOfLines = 0
@@ -90,7 +90,7 @@ public class ETMultiColumnCell: UITableViewCell {
                 if withTextUpdate {
                     columnLabel.attributedText = $0.element.column.attText
                 }
-            } else if let provider = config.columns[$0.offset].contentViewProvider {
+            } else if let provider = config.columns[$0.offset].viewProvider {
                 try? provider.customize(view: subview)
             }
 
@@ -115,11 +115,12 @@ public class ETMultiColumnCell: UITableViewCell {
             }
 
             let contentSize: CGSize
+            let inWidth = $0.element.size.width - edgeInsets.horizontal()
 
-            if let provider = config.columns[$0.offset].contentViewProvider {
-                contentSize = provider.viewSize() // TODO: check size is sufficient!
+            if let provider = config.columns[$0.offset].viewProvider {
+                contentSize = provider.size(for: inWidth) // TODO: check size is sufficient!
             } else {
-                contentSize = CGSize(width: $0.element.size.width - edgeInsets.horizontal(), height: $0.element.size.height - edgeInsets.vertical())
+                contentSize = CGSize(width: inWidth, height: $0.element.size.height - edgeInsets.vertical())
             }
 
             // Layouts
@@ -193,7 +194,7 @@ public extension ETMultiColumnCell {
         var customViewsIdentifier = ""
 
         config.columns.enumerated().forEach { (index, column) in
-            if let customViewIdentifier = column.contentViewProvider?.viewIdentifier() {
+            if let customViewIdentifier = column.viewProvider?.reuseId {
                 customViewsIdentifier.append("\(index)")
                 customViewsIdentifier.append(customViewIdentifier)
             }
