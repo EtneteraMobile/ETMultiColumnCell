@@ -77,7 +77,7 @@ class ViewController: UITableViewController {
 
         ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
+                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
             ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 1, color: .blue)], edges: padding), text: {()-> NSAttributedString in
                 let r = NSMutableAttributedString()
                 r.append(NSAttributedString(attachment: imageAttachment))
@@ -110,7 +110,7 @@ class ViewController: UITableViewController {
 
         ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "44.", backgroundColor: .red, textColor: .white))),
+                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "44.", backgroundColor: .red, textColor: .white))),
             ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "Chomutov"),
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "30"),
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "12"),
@@ -207,9 +207,15 @@ class ViewController: UITableViewController {
             }()),
             ]))
 
+        let C = ETMultiColumnCell.Configuration.self
+        let asdg = NSMutableAttributedString(string: "lasjdhglkasdh",
+                                          attributes: headerAttributes)
+        dynamicConfig.append(C.init(columns: [C.Column(layout: .relative(edges: .insets(vertical: 2, horizontal: 2)),
+                                               content: LabelProvider(with: LabelProvider.Content(attText: asdg)))]))
+
         dynamicConfig.append(ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
+                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
             ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: {()-> NSAttributedString in
                 let r = NSMutableAttributedString()
                 r.append(NSAttributedString(attachment: ViewController.imageAttachment))
@@ -232,7 +238,7 @@ class ViewController: UITableViewController {
 
             let cell = ETMultiColumnCell.Configuration(columns: [
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                       content: CustomContentViewProvider(with: CustomContentViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white))),
+                                                       content: CustomViewProvider(with: CustomViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white))),
                 ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "\(String.random(length: Int.random(lower: 4, upper: 8))) \(String.random(length: Int.random(lower: 2, upper: 5)))"),
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)], edges: padding), text: Int.random(lower: 20, upper: 100).toString()),
                 ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
