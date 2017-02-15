@@ -25,186 +25,39 @@ class ViewController: UITableViewController {
 
     var dynamicConfig: [ETMultiColumnCell.Configuration] = []
 
-    let cellConfigs = [
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: padding), text: {()-> NSAttributedString in
-                 let r = NSMutableAttributedString(string: "P",
-                                                   attributes: headerAttributes)
-                    return r
-                }()),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Tým",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Z",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "V",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "VP",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "PP",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "P",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Skóre",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "B",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 1, color: .blue)], edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString()
-                r.append(NSAttributedString(attachment: imageAttachment))
-                r.append(NSAttributedString(string: " Mladá Boleslav",
-                                            attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
-                                                         NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "10"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "16"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "4"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "4"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: "36:30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "58"),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(top: 6, left: 4, bottom: 6, right: 0)),
-                                                   text: "59."),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "Chomutov"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "12"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "9"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "1"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "9"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: "41:37"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "45"),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "44.", backgroundColor: .red, textColor: .white))),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "Chomutov"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "12"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "9"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "1"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "9"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: "41:37"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "45"),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 3, color: .red)], edges: .inner(top: 15, left: 50, bottom: 15, right: 0)), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)]), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: .inner(top: 30, left: 0, bottom: 15, right: 0)), text: "Hello there!"),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Border!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(border: [.left(width: 3, color: .red)], edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)]), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: .inner(top: 30, left: 0, bottom: 15, right: 0)), text: "Hello there!"),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 80.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 60.0), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 0)), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
-            ]),
-
-        ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: .inner(top: 15, left: 10, bottom: 15, right: 5)), text: "Hello there!"),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: .inner(top: 15, left: 10, bottom: 15, right: 10)), text: ViewController.attributedText),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(), text: "Hello there!")
-            ])
-    ]
-
     override func viewDidLoad() {
         tableView.separatorStyle = .none
         let padding = ViewController.padding
         let headerAttributes = ViewController.headerAttributes
 
         dynamicConfig.append(ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "P",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Tým",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Z",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "V",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "VP",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "PP",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "P",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "Skóre",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: {()-> NSAttributedString in
-                let r = NSMutableAttributedString(string: "B",
-                                                  attributes: headerAttributes)
-                return r
-            }()),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "P",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "Tým",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "Z",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "V",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "VP",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "PP",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "P",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "Skore",
+                                                                                                                                  attributes: headerAttributes)))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "Body",
+                                                                                                                                  attributes: headerAttributes))))
             ]))
 
         let C = ETMultiColumnCell.Configuration.self
@@ -216,41 +69,65 @@ class ViewController: UITableViewController {
         dynamicConfig.append(ETMultiColumnCell.Configuration(columns: [
             ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
                                                    content: CustomViewProvider(with: CustomViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
-            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: {()-> NSAttributedString in
+            ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
                 let r = NSMutableAttributedString()
                 r.append(NSAttributedString(attachment: ViewController.imageAttachment))
                 r.append(NSAttributedString(string: " Mladá Boleslav",
                                             attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
                                                          NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
                 return r
-            }()),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)], edges: padding), text: "30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "10"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "16"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "4"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "4"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: "36:30"),
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: "58"),
+            }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)], edges: padding),
+                                                    content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
+                                                        let r = NSMutableAttributedString()
+                                                        r.append(NSAttributedString(string: "30",
+                                                                                    attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
+                                                                                                 NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
+                                                        return r
+                                                    }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                    content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
+                                                        let r = NSMutableAttributedString()
+                                                        r.append(NSAttributedString(string: "10",
+                                                                                    attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
+                                                                                                 NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
+                                                        return r
+                                                    }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
+                                                    let r = NSMutableAttributedString()
+                                                    r.append(NSAttributedString(string: "16",
+                                                                                attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
+                                                                                             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
+                                                    return r
+                                                   }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
+                                                    let r = NSMutableAttributedString()
+                                                    r.append(NSAttributedString(string: "4",
+                                                                                attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
+                                                                                             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
+                                                    return r
+                                                   }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
+                                                    let r = NSMutableAttributedString()
+                                                    r.append(NSAttributedString(string: "4",
+                                                                                attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default,
+                                                                                             NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)]))
+                                                    return r
+                                                   }()))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "36:30",
+                                                                                                                                  attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)])))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding),
+                                                   content: LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "58",
+                                                                                                                                  attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)])))),
             ]))
 
-        for i in 0...1000 {
-            let customViewColor = UIColor.init(red: CGFloat.random(lower: 0.2, upper: 0.8), green: CGFloat.random(lower: 0.2, upper: 0.8), blue: CGFloat.random(lower: 0.2, upper: 0.8), alpha: 1)
-
-            let cell = ETMultiColumnCell.Configuration(columns: [
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                       content: CustomViewProvider(with: CustomViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white))),
-                ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), text: "\(String.random(length: Int.random(lower: 4, upper: 8))) \(String.random(length: Int.random(lower: 2, upper: 5)))"),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, border: [.left(width: 1, color: .blue)], edges: padding), text: Int.random(lower: 20, upper: 100).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 20).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding), text: Int.random(lower: 2, upper: 50).toString() + ":" + Int.random(lower: 2, upper: 50).toString()),
-                ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: padding), text: Int.random(lower: 2, upper: 100).toString()),
-                ])
-
-            dynamicConfig.append(cell)
-        }
+        dynamicConfig += DataFactory.dataA
+        dynamicConfig += DataFactory.dataB
+        dynamicConfig += DataFactory.dataC
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

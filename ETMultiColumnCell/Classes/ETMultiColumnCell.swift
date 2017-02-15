@@ -51,27 +51,20 @@ public class ETMultiColumnCell: UITableViewCell {
             return
         }
         
-        try? customizeColumns(withTextUpdate: false)
+        try? customizeColumns()
     }
 
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
 
         config.columns.forEach { columnConfig in
-            if let provider = columnConfig.viewProvider {
-                contentView.addSubview(provider.create())
-            } else {
-                let label = UILabel()
-                label.numberOfLines = 0
-                contentView.addSubview(label)
-            }
-
+            contentView.addSubview(columnConfig.viewProvider.create())
             borderLayer.addSublayer(CAShapeLayer())
         }
     }
 
     /// Customize columns with content from current configuration.
-    private func customizeColumns(withTextUpdate: Bool = true) throws {
+    private func customizeColumns() throws {
 
         let subviewsCount = contentView.subviews.count
         var lastRightEdge: CGFloat = 0.0
@@ -86,13 +79,7 @@ public class ETMultiColumnCell: UITableViewCell {
 
             let subview = self.contentView.subviews[$0.offset]
 
-            if let columnLabel = subview as? UILabel {
-                if withTextUpdate {
-                    columnLabel.attributedText = $0.element.column.attText
-                }
-            } else if let provider = config.columns[$0.offset].viewProvider {
-                try? provider.customize(view: subview)
-            }
+            try? config.columns[$0.offset].viewProvider.customize(view: subview)
 
             let edgeInsets = $0.element.edges.insets()
 
@@ -109,19 +96,13 @@ public class ETMultiColumnCell: UITableViewCell {
                 switch $0 {
                 case let .left(width: borderWidth, color: borderColor):
                     showLeftBorder(column: layer, width: borderWidth, color: borderColor)
-                case let .bottom(width: borderWidth, color: borderColor):
-                    fatalError("not implemented yet") // WARNING: implement functionality (+ fix showLeftBorder)
                 }
             }
 
             let contentSize: CGSize
             let inWidth = $0.element.size.width - edgeInsets.horizontal()
 
-            if let provider = config.columns[$0.offset].viewProvider {
-                contentSize = provider.size(for: inWidth) // TODO: check size is sufficient!
-            } else {
-                contentSize = CGSize(width: inWidth, height: $0.element.size.height - edgeInsets.vertical())
-            }
+            contentSize = config.columns[$0.offset].viewProvider.size(for: inWidth) // TODO: check size is sufficient!
 
             // Layouts
             subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: contentSize)
@@ -194,10 +175,8 @@ public extension ETMultiColumnCell {
         var customViewsIdentifier = ""
 
         config.columns.enumerated().forEach { (index, column) in
-            if let customViewIdentifier = column.viewProvider?.reuseId {
-                customViewsIdentifier.append("\(index)")
-                customViewsIdentifier.append(customViewIdentifier)
-            }
+            customViewsIdentifier.append("\(index)")
+            customViewsIdentifier.append(column.viewProvider.reuseId)
         }
 
         return NSStringFromClass(ETMultiColumnCell.self) + "-\(config.columns.count)" + customViewsIdentifier

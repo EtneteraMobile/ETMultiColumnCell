@@ -38,25 +38,11 @@ public extension ETMultiColumnCell {
             // MARK: - Variables
 
             public let layout: Layout
-            public let attText: NSAttributedString?
-            public let viewProvider: ViewProvider?
-
-            public init(layout: Layout, text: String, font: UIFont = UIFont.boldSystemFont(ofSize: 10.0)) {
-                self.layout = layout
-                self.attText = NSAttributedString(string: text, attributes: [NSFontAttributeName: font])
-                self.viewProvider = nil
-            }
-
-            public  init(layout: Layout, text: NSAttributedString) {
-                self.layout = layout
-                self.attText = text
-                self.viewProvider = nil
-            }
+            public let viewProvider: ViewProvider
 
             public  init(layout: Layout, content viewProvider: ViewProvider) {
                 self.layout = layout
                 self.viewProvider = viewProvider
-                self.attText = nil
             }
 
             // MARK: - Inner
@@ -92,7 +78,6 @@ public extension ETMultiColumnCell {
 
                 public enum Border {
                     case left(width: CGFloat, color: UIColor)
-                    case bottom(width: CGFloat, color: UIColor)
                 }
 
                 public enum Edges {
@@ -202,30 +187,13 @@ public extension ETMultiColumnCell.Configuration {
 
             let height: CGFloat
 
-            if let text = $0.attText {
-                height = calculateHeight(withText: text, inWidth: inWidth)
-            } else if let provider = $0.viewProvider {
-                let size = provider.size(for: inWidth)
-                height = size.height
-                guard size.width <= inWidth else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(size.width), inWidth=\(inWidth)).") }
-            } else {
-                height = 0
-            }
+            let size = $0.viewProvider.size(for: inWidth)
+            height = size.height
+            guard size.width <= inWidth else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(size.width), inWidth=\(inWidth)).") }
 
             return ($0, CGSize(width: width, height: height + verticalEdges), edges, border)
         }
 
         return result
-    }
-
-    // MARK: - Helpers
-
-    private func calculateHeight(withText attText: NSAttributedString, inWidth width: CGFloat) -> CGFloat {
-
-        // Calculates height manualy
-
-        let boundingRect = attText.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-        
-        return ceil(boundingRect.height)
     }
 }

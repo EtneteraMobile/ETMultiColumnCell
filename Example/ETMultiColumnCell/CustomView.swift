@@ -30,7 +30,6 @@ class CustomView: UIView {
     // MARK: - Initialization
 
     init() {
-        print("create customview - reuse test")
         super.init(frame: .zero)
 
         setup()
