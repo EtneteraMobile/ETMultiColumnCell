@@ -22,7 +22,7 @@ struct DataFactory {
 
                 let content: ViewProvider
                 if Int.random(lower: 0, upper: 1) == 1 {
-                    content = SingleLineLabelProvider(with: SingleLineLabelProvider.Content(attText: NSAttributedString(string: "\(String.random(length: Int.random(lower: 4, upper: 12))) \(String.random(length: Int.random(lower: 2, upper: 12)))",
+                    content = SingleLineLabelProvider(with: SingleLineLabelProvider.Content(attText: NSAttributedString(string: "\(String.random(length: Int.random(lower: 10, upper: 20))) \(String.random(length: Int.random(lower: 2, upper: 12)))",
                         attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10)])))
                 } else {
                     content = LabelProvider(with: LabelProvider.Content(attText: NSAttributedString(string: "\(String.random(length: Int.random(lower: 8, upper: 20))) \(String.random(length: Int.random(lower: 6, upper: 12)))",
@@ -31,11 +31,11 @@ struct DataFactory {
 
                 let badgeOrNotColumnConfig: ETMultiColumnCell.Configuration.Column
                 if Int.random(lower: 0, upper: 1) == 1 {
-                    badgeOrNotColumnConfig = ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                                                    content: CustomViewProvider(with: CustomViewProvider.Content(text: "\(i).", backgroundColor: .clear, textColor: .black)))
+                    badgeOrNotColumnConfig = ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2), verticalAlignment: .middle),
+                                                                                    content: BadgeViewProvider(with: BadgeViewProvider.Content(text: "\(i).", backgroundColor: .clear, textColor: .black)))
                 } else {
-                    badgeOrNotColumnConfig = ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                                                    content: CustomViewProvider(with: CustomViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white)))
+                    badgeOrNotColumnConfig = ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2), verticalAlignment: .middle),
+                                                                                    content: BadgeViewProvider(with: BadgeViewProvider.Content(text: "\(i).", backgroundColor: customViewColor, textColor: .white)))
                 }
 
                 let cell = ETMultiColumnCell.Configuration(columns: [
@@ -94,7 +94,7 @@ struct DataFactory {
                                                            content: TwoLabelsViewProvider(with: contentDate)),
                     ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding),
                                                            content: TwoLabelsViewProvider(with: content)),
-                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding),
+                    ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding, verticalAlignment: .middle),
                                                            content: SingleLineLabelProvider(with: SingleLineLabelProvider.Content(attText: NSAttributedString(string: "\(String.random(length: Int.random(lower: 8, upper: 20))) \(String.random(length: Int.random(lower: 6, upper: 12)))",
                                                             attributes: [NSParagraphStyleAttributeName: NSParagraphStyle.default, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12)])))),
                     ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 40.0, edges: padding),

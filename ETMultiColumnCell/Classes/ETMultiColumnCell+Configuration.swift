@@ -53,15 +53,15 @@ public extension ETMultiColumnCell {
             /// - fixed: fixed size column (size as parameter)
             public enum Layout {
 
-                case rel(border: [Border], edges: Edges)
-                case fix(width: CGFloat, border: [Border], edges: Edges)
+                case rel(border: [Border], edges: Edges, verticalAlignment: VerticalAlignment)
+                case fix(width: CGFloat, border: [Border], edges: Edges, verticalAlignment: VerticalAlignment)
 
-                public static func relative(border: [Border] = [], edges: Edges = .zero) -> Layout {
-                    return .rel(border: border, edges: edges)
+                public static func relative(border: [Border] = [], edges: Edges = .zero, verticalAlignment: VerticalAlignment = .top) -> Layout {
+                    return .rel(border: border, edges: edges, verticalAlignment: verticalAlignment)
                 }
 
-                public static func fixed(width: CGFloat, border: [Border] = [], edges: Edges = .zero) -> Layout {
-                    return .fix(width: width, border: border, edges: edges)
+                public static func fixed(width: CGFloat, border: [Border] = [], edges: Edges = .zero, verticalAlignment: VerticalAlignment = .top) -> Layout {
+                    return .fix(width: width, border: border, edges: edges, verticalAlignment: verticalAlignment)
                 }
 
                 /// Returns fixed width in case fixed layout. Otherwise returns nil
@@ -69,15 +69,21 @@ public extension ETMultiColumnCell {
                 /// - Returns: width (static layout) or nil (relative layout)
                 public func fixedWidth() -> CGFloat? {
                     switch self {
-                    case .rel(border: _, edges: _):
+                    case .rel(border: _, edges: _, verticalAlignment: _):
                         return nil
-                    case .fix(width: let width, border: _, edges: _):
+                    case .fix(width: let width, border: _, edges: _, verticalAlignment: _):
                         return width
                     }
                 }
 
                 public enum Border {
                     case left(width: CGFloat, color: UIColor)
+                }
+
+                public enum VerticalAlignment {
+                    case top
+                    case middle
+                    case bottom
                 }
 
                 public enum Edges {
@@ -138,7 +144,11 @@ public extension ETMultiColumnCell {
 
 public extension ETMultiColumnCell.Configuration {
 
-    internal func columnsWithSizes(inWidth width: CGFloat) throws -> [(column: ETMultiColumnCell.Configuration.Column, size: CGSize, edges: Column.Layout.Edges, border: [Column.Layout.Border])] {
+    internal func columnsWithSizes(inWidth width: CGFloat) throws -> [(column: ETMultiColumnCell.Configuration.Column,
+                                                                        size: CGSize,
+                                                                        edges: Column.Layout.Edges,
+                                                                        border: [Column.Layout.Border],
+                                                                        alignment: Column.Layout.VerticalAlignment)] {
 
         // Is width valid
         guard width > 0.0 else { throw ETMultiColumnCell.Error.invalidWidth() }
@@ -162,21 +172,24 @@ public extension ETMultiColumnCell.Configuration {
         let relativeColumnWidth = floor(remainingWidth / CGFloat(relativeColumnsCount))
 
         // Calculates columns frame
-        let result:[(Column, CGSize, Column.Layout.Edges, [Column.Layout.Border])] = try columns.map {
+        let result:[(Column, CGSize, Column.Layout.Edges, [Column.Layout.Border], Column.Layout.VerticalAlignment)] = try columns.map {
 
             let edges: Column.Layout.Edges
             let width: CGFloat
             let border: [Column.Layout.Border]
+            let alignment: Column.Layout.VerticalAlignment
 
             switch $0.layout {
-            case let .rel(border: relativeBorder, edges: relativeEdges):
+            case let .rel(border: relativeBorder, edges: relativeEdges, verticalAlignment: relativeAlignment):
                 border = relativeBorder
                 width = relativeColumnWidth
                 edges = relativeEdges
-            case let .fix(width: fixedWidth, border: fixedBorder, edges: fixedEdges):
+                alignment = relativeAlignment
+            case let .fix(width: fixedWidth, border: fixedBorder, edges: fixedEdges, verticalAlignment: fixedAlignment):
                 border = fixedBorder
                 width = fixedWidth
                 edges = fixedEdges
+                alignment = fixedAlignment
             }
 
             let verticalEdges = edges.insets().vertical()
@@ -191,7 +204,7 @@ public extension ETMultiColumnCell.Configuration {
             height = size.height
             guard size.width <= inWidth else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(size.width), inWidth=\(inWidth)).") }
 
-            return ($0, CGSize(width: width, height: height + verticalEdges), edges, border)
+            return ($0, CGSize(width: width, height: height + verticalEdges), edges, border, alignment)
         }
 
         return result

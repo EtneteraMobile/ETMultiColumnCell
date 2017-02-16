@@ -1,14 +1,14 @@
 //
-//  CustomView.swift
-//  ETMultiColumnCell
+//  BadgeView.swift
+//  Pods
 //
-//  Created by Petr Urban on 13/02/2017.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Petr Urban on 16/02/2017.
+//
 //
 
 import UIKit
 
-class CustomView: UIView {
+class BadgeView: UIView {
 
     // MARK: - Variables
 

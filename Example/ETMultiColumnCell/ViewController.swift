@@ -67,8 +67,8 @@ class ViewController: UITableViewController {
                                                content: LabelProvider(with: LabelProvider.Content(attText: asdg)))]))
 
         dynamicConfig.append(ETMultiColumnCell.Configuration(columns: [
-            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 25.0, edges: .insets(vertical: 2, horizontal: 2)),
-                                                   content: CustomViewProvider(with: CustomViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
+            ETMultiColumnCell.Configuration.Column(layout: .fixed(width: 30.0, edges: .insets(vertical: 2, horizontal: 2)),
+                                                   content: BadgeViewProvider(with: BadgeViewProvider.Content(text: "3.", backgroundColor: .gray, textColor: .white))),
             ETMultiColumnCell.Configuration.Column(layout: .relative(edges: padding), content: LabelProvider(with: LabelProvider.Content(attText: {()-> NSAttributedString in
                 let r = NSMutableAttributedString()
                 r.append(NSAttributedString(attachment: ViewController.imageAttachment))

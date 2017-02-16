@@ -70,6 +70,7 @@ public class ETMultiColumnCell: UITableViewCell {
         var lastRightEdge: CGFloat = 0.0
 
         let columnsWithSizes = try config.columnsWithSizes(inWidth: frame.size.width)
+        let maxHeight = ETMultiColumnCell.maxHeight(columnsSizes: columnsWithSizes)
 
         borderLayer.frame = bounds
 
@@ -102,10 +103,21 @@ public class ETMultiColumnCell: UITableViewCell {
             let contentSize: CGSize
             let inWidth = $0.element.size.width - edgeInsets.horizontal()
 
-            contentSize = config.columns[$0.offset].viewProvider.size(for: inWidth) // TODO: check size is sufficient!
+            contentSize = config.columns[$0.offset].viewProvider.size(for: inWidth)
+
+            let topAlignShift: CGFloat
+
+            switch $0.element.alignment {
+            case .bottom:
+                topAlignShift = maxHeight - contentSize.height - edgeInsets.bottom
+            case .middle:
+                topAlignShift = (maxHeight - edgeInsets.vertical() + contentSize.height)/2 - contentSize.height + edgeInsets.top
+            case .top:
+                topAlignShift = edgeInsets.top
+            }
 
             // Layouts
-            subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: edgeInsets.top), size: contentSize)
+            subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: topAlignShift), size: contentSize)
 
             let columnWidth = $0.element.size.width
 
@@ -188,10 +200,18 @@ public extension ETMultiColumnCell {
     /// - Returns: height of cell for given configuration
     public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) throws -> CGFloat {
 
-        let maxTouple = try config.columnsWithSizes(inWidth: width).max { lhs, rhs -> Bool in
+        return maxHeight(columnsSizes: try config.columnsWithSizes(inWidth: width))
+    }
+
+    internal static func maxHeight(columnsSizes: [(column: ETMultiColumnCell.Configuration.Column,
+                                                    size: CGSize,
+                                                    edges: ETMultiColumnCell.Configuration.Column.Layout.Edges,
+                                                    border: [ETMultiColumnCell.Configuration.Column.Layout.Border],
+                                                    alignment: ETMultiColumnCell.Configuration.Column.Layout.VerticalAlignment)]) -> CGFloat {
+        let maxTouple = columnsSizes.max { lhs, rhs -> Bool in
             return lhs.size.height < rhs.size.height
         }
 
-        return maxTouple?.size.height ?? 0.0
+        return maxTouple?.size.height ?? 0
     }
 }

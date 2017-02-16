@@ -63,8 +63,14 @@
 		6544DC451E37A38F00633487 /* ETMultiColumnCell+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544DC441E37A38F00633487 /* ETMultiColumnCell+Configuration.swift */; };
 		6544DC471E37A40300633487 /* ETMultiColumnCell+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6544DC461E37A40300633487 /* ETMultiColumnCell+Error.swift */; };
 		65AA294A455DCD4EEA3837F6D6A1794E /* XCTestObservationCenter+Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A75CD2BBED6DBFEC2C162C0CB9CA5FC /* XCTestObservationCenter+Register.m */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		65DBBE601E51D48400F400A1 /* ViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBBE5F1E51D48400F400A1 /* ViewProvider.swift */; };
-		65DBBE641E52E30200F400A1 /* ViewProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DBBE631E52E30200F400A1 /* ViewProviderError.swift */; };
+		65E68D301E5582ED00B60CF9 /* ViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D2E1E5582ED00B60CF9 /* ViewProvider.swift */; };
+		65E68D311E5582ED00B60CF9 /* ViewProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D2F1E5582ED00B60CF9 /* ViewProviderError.swift */; };
+		65E68D381E5585BF00B60CF9 /* BadgeViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D371E5585BF00B60CF9 /* BadgeViewProvider.swift */; };
+		65E68D3A1E5585EB00B60CF9 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D391E5585EB00B60CF9 /* BadgeView.swift */; };
+		65E68D3C1E55909100B60CF9 /* LabelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D3B1E55909100B60CF9 /* LabelProvider.swift */; };
+		65E68D3E1E5593B800B60CF9 /* TwoLabelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D3D1E5593B800B60CF9 /* TwoLabelsView.swift */; };
+		65E68D401E55942300B60CF9 /* SingleLineLabelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D3F1E55942300B60CF9 /* SingleLineLabelProvider.swift */; };
+		65E68D421E5596DA00B60CF9 /* TwoLabelsViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E68D411E5596DA00B60CF9 /* TwoLabelsViewProvider.swift */; };
 		68B245DB47CA60F8F9ADCA1E8CCDC324 /* UIApplication+StrictKeyWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = B0BDDFCA6435FEF025A8AA771C018452 /* UIApplication+StrictKeyWindow.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6914EE43A9B8B8D30220B3B6B0D57523 /* FBSnapshotTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D1793E15813EC733B46E6884FEEA74 /* FBSnapshotTestCase.m */; };
 		692950F18B7AA626E7630A7C562CBC40 /* RaisesException.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB9685CE2F44160E003CBE369BC12D1 /* RaisesException.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -281,8 +287,14 @@
 		653859AE7243293D15353BAEBA55CA28 /* Quick-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Quick-umbrella.h"; sourceTree = "<group>"; };
 		6544DC441E37A38F00633487 /* ETMultiColumnCell+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ETMultiColumnCell+Configuration.swift"; sourceTree = "<group>"; };
 		6544DC461E37A40300633487 /* ETMultiColumnCell+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ETMultiColumnCell+Error.swift"; sourceTree = "<group>"; };
-		65DBBE5F1E51D48400F400A1 /* ViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProvider.swift; sourceTree = "<group>"; };
-		65DBBE631E52E30200F400A1 /* ViewProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProviderError.swift; sourceTree = "<group>"; };
+		65E68D2E1E5582ED00B60CF9 /* ViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewProvider.swift; path = ViewProvider/ViewProvider.swift; sourceTree = "<group>"; };
+		65E68D2F1E5582ED00B60CF9 /* ViewProviderError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewProviderError.swift; path = ViewProvider/ViewProviderError.swift; sourceTree = "<group>"; };
+		65E68D371E5585BF00B60CF9 /* BadgeViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeViewProvider.swift; sourceTree = "<group>"; };
+		65E68D391E5585EB00B60CF9 /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
+		65E68D3B1E55909100B60CF9 /* LabelProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelProvider.swift; sourceTree = "<group>"; };
+		65E68D3D1E5593B800B60CF9 /* TwoLabelsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoLabelsView.swift; sourceTree = "<group>"; };
+		65E68D3F1E55942300B60CF9 /* SingleLineLabelProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLineLabelProvider.swift; sourceTree = "<group>"; };
+		65E68D411E5596DA00B60CF9 /* TwoLabelsViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwoLabelsViewProvider.swift; sourceTree = "<group>"; };
 		68C2953A942F774F4EBD3FBA94996D98 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A75CD2BBED6DBFEC2C162C0CB9CA5FC /* XCTestObservationCenter+Register.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "XCTestObservationCenter+Register.m"; path = "Sources/NimbleObjectiveC/XCTestObservationCenter+Register.m"; sourceTree = "<group>"; };
 		6AA9CC2FCC6A658CA3D69403743C9972 /* Pods-ETMultiColumnCell_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ETMultiColumnCell_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -568,13 +580,52 @@
 			path = FBSnapshotTestCase;
 			sourceTree = "<group>";
 		};
+		65E68D2D1E5582B000B60CF9 /* ViewProvider */ = {
+			isa = PBXGroup;
+			children = (
+				65E68D321E55839300B60CF9 /* Implementation */,
+				65E68D2E1E5582ED00B60CF9 /* ViewProvider.swift */,
+				65E68D2F1E5582ED00B60CF9 /* ViewProviderError.swift */,
+			);
+			name = ViewProvider;
+			sourceTree = "<group>";
+		};
+		65E68D321E55839300B60CF9 /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				65E68D351E5585BF00B60CF9 /* View */,
+				65E68D361E5585BF00B60CF9 /* Provider */,
+			);
+			name = Implementation;
+			path = ViewProvider/Implementation;
+			sourceTree = "<group>";
+		};
+		65E68D351E5585BF00B60CF9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				65E68D3D1E5593B800B60CF9 /* TwoLabelsView.swift */,
+				65E68D391E5585EB00B60CF9 /* BadgeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65E68D361E5585BF00B60CF9 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				65E68D371E5585BF00B60CF9 /* BadgeViewProvider.swift */,
+				65E68D3B1E55909100B60CF9 /* LabelProvider.swift */,
+				65E68D3F1E55942300B60CF9 /* SingleLineLabelProvider.swift */,
+				65E68D411E5596DA00B60CF9 /* TwoLabelsViewProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		736E65B77260E1046EE5351A4ED8C13B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				65E68D2D1E5582B000B60CF9 /* ViewProvider */,
 				0AF004A8298A7F5833F0C7304556A724 /* ETMultiColumnCell.swift */,
 				6544DC441E37A38F00633487 /* ETMultiColumnCell+Configuration.swift */,
-				65DBBE5F1E51D48400F400A1 /* ViewProvider.swift */,
-				65DBBE631E52E30200F400A1 /* ViewProviderError.swift */,
 				6544DC461E37A40300633487 /* ETMultiColumnCell+Error.swift */,
 			);
 			path = Classes;
@@ -1160,11 +1211,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65E68D3A1E5585EB00B60CF9 /* BadgeView.swift in Sources */,
+				65E68D401E55942300B60CF9 /* SingleLineLabelProvider.swift in Sources */,
 				6544DC471E37A40300633487 /* ETMultiColumnCell+Error.swift in Sources */,
+				65E68D3E1E5593B800B60CF9 /* TwoLabelsView.swift in Sources */,
+				65E68D301E5582ED00B60CF9 /* ViewProvider.swift in Sources */,
+				65E68D421E5596DA00B60CF9 /* TwoLabelsViewProvider.swift in Sources */,
 				6544DC451E37A38F00633487 /* ETMultiColumnCell+Configuration.swift in Sources */,
 				75A7751C66CCFB1C620A1E65F77F05CC /* ETMultiColumnCell-dummy.m in Sources */,
-				65DBBE601E51D48400F400A1 /* ViewProvider.swift in Sources */,
-				65DBBE641E52E30200F400A1 /* ViewProviderError.swift in Sources */,
+				65E68D3C1E55909100B60CF9 /* LabelProvider.swift in Sources */,
+				65E68D311E5582ED00B60CF9 /* ViewProviderError.swift in Sources */,
+				65E68D381E5585BF00B60CF9 /* BadgeViewProvider.swift in Sources */,
 				54556FCC145A46B08CA54476F27468A4 /* ETMultiColumnCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
