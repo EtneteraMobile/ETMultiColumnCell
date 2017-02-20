@@ -87,27 +87,26 @@ public class ETMultiColumnCell: UITableViewCell {
                 }
             }
 
-            let contentSize: CGSize
             let inWidth = $0.element.size.width - edgeInsets.horizontal()
+            let inHeight = $0.element.size.height - edgeInsets.vertical()
 
-            contentSize = config.columns[$0.offset].viewProvider.size(for: inWidth)
+            let contentSize = CGSize(width: inWidth, height: inHeight)
 
-            let topAlignShift: CGFloat
+            let top: CGFloat
 
             switch $0.element.alignment {
             case .bottom:
-                topAlignShift = maxHeight - contentSize.height - edgeInsets.bottom
+                top = maxHeight - contentSize.height - edgeInsets.bottom
             case .middle:
-                topAlignShift = (maxHeight - edgeInsets.vertical() + contentSize.height)/2 - contentSize.height + edgeInsets.top
+                top = round((maxHeight - contentSize.height)/2.0)
             case .top:
-                topAlignShift = edgeInsets.top
+                top = edgeInsets.top
             }
 
             // Layouts
-            subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: topAlignShift), size: contentSize)
+            subview.frame = CGRect(origin: CGPoint(x: lastRightEdge + edgeInsets.left, y: top), size: contentSize)
 
             let columnWidth = $0.element.size.width
-
             lastRightEdge += columnWidth
         }
     }

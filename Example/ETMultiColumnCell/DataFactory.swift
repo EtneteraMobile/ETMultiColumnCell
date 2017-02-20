@@ -245,11 +245,7 @@ struct DataFactory {
     }
 
     private static func createColumn(_ layout: ETMultiColumnCell.Configuration.Column.Layout, _ style: LabelProvider.Content.Style) -> ETMultiColumnCell.Configuration.Column {
-        LabelProvider.Content(style: style)
-        let c = LabelProvider.Content(style: style)
-        let p = LabelProvider(with: c)
-        return ETMultiColumnCell.Configuration.Column(layout: layout, content: p)
-//        return ETMultiColumnCell.Configuration.Column(layout: layout, content: LabelProvider(with: LabelProvider.Content(style: style)))
+        return ETMultiColumnCell.Configuration.Column(layout: layout, content: LabelProvider(with: LabelProvider.Content(style: style)))
     }
 
     private static func createColumn(_ layout: ETMultiColumnCell.Configuration.Column.Layout, _ provider: ViewProvider) -> ETMultiColumnCell.Configuration.Column {
