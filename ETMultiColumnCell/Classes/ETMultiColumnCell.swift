@@ -69,7 +69,7 @@ public class ETMultiColumnCell: UITableViewCell {
         let subviewsCount = contentView.subviews.count
         var lastRightEdge: CGFloat = 0.0
 
-        let columnsWithSizes = try config.columnsWithSizes(inWidth: frame.size.width)
+        let columnsWithSizes = try config.columnsWithSizes(in: frame.size.width)
         let maxHeight = ETMultiColumnCell.maxHeight(columnsSizes: columnsWithSizes)
 
         borderLayer.frame = bounds
@@ -89,11 +89,11 @@ public class ETMultiColumnCell: UITableViewCell {
             let columnSize = CGSize(width: $0.element.size.width, height: frame.height)
             layer?.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0), size: columnSize)
 
-            if $0.element.border.count == 0 {
+            if $0.element.borders.count == 0 {
                 hideBorders(column: layer)
             }
 
-            $0.element.border.forEach {
+            $0.element.borders.forEach {
                 switch $0 {
                 case let .left(width: borderWidth, color: borderColor):
                     showLeftBorder(column: layer, width: borderWidth, color: borderColor)
@@ -200,14 +200,10 @@ public extension ETMultiColumnCell {
     /// - Returns: height of cell for given configuration
     public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) throws -> CGFloat {
 
-        return maxHeight(columnsSizes: try config.columnsWithSizes(inWidth: width))
+        return maxHeight(columnsSizes: try config.columnsWithSizes(in: width))
     }
 
-    internal static func maxHeight(columnsSizes: [(column: ETMultiColumnCell.Configuration.Column,
-                                                    size: CGSize,
-                                                    edges: ETMultiColumnCell.Configuration.Column.Layout.Edges,
-                                                    border: [ETMultiColumnCell.Configuration.Column.Layout.Border],
-                                                    alignment: ETMultiColumnCell.Configuration.Column.Layout.VerticalAlignment)]) -> CGFloat {
+    internal static func maxHeight(columnsSizes: [Configuration.ColumnWrapper]) -> CGFloat {
         let maxTouple = columnsSizes.max { lhs, rhs -> Bool in
             return lhs.size.height < rhs.size.height
         }

@@ -1,6 +1,6 @@
 //
 //  ETMultiColumnCellError.swift
-//  Pods
+//  ETMultiColumnCell
 //
 //  Created by Petr Urban on 24/01/2017.
 //

@@ -1,6 +1,6 @@
 //
 //  BadgeViewProvider.swift
-//  Pods
+//  ETMultiColumnCell
 //
 //  Created by Petr Urban on 16/02/2017.
 //
@@ -8,15 +8,26 @@
 
 import Foundation
 
+// MARK: - BadgeViewProvider
+
+/// Provides implementation of `ViewProvider` that creates `BadgeView` as column.
 public struct BadgeViewProvider: ViewProvider {
 
-    public let reuseId = "BadgeViewProvider"
+    // MARK: - Variables
+    // MARK: public
+
+    public let reuseId = "BadgeViewIdentifier"
+    public var font: UIFont?
+    public var textInset: CGFloat?
+
+    // MARK: private
 
     private let content: Content
     private let size: CGSize?
 
-
-    /// When size is nil, then size of view will be computed based on cell width - `CGSize(width: width, height: width)`
+    // MARK: - Initialization
+    /// When size is nil, then size of view will be computed based on cell width
+    /// like `CGSize(width: width, height: width)`
     ///
     /// - Parameters:
     ///   - content: BadgeViewProvider.Content
@@ -26,11 +37,10 @@ public struct BadgeViewProvider: ViewProvider {
         self.content = content
     }
 
-    // MARK: - Delegate
-    // MARK: ViewProvider
+    // MARK: - ViewProvider
 
     public func create() -> UIView {
-        return BadgeView()
+        return BadgeView(font: font, textInset: textInset)
     }
 
     public func customize(view: UIView) throws {
@@ -44,7 +54,7 @@ public struct BadgeViewProvider: ViewProvider {
     }
 }
 
-// MARK: - CustomViewProvider.Content
+// MARK: - BadgeViewProvider.Content
 
 public extension BadgeViewProvider {
 

@@ -1,6 +1,6 @@
 //
 //  BadgeView.swift
-//  Pods
+//  ETMultiColumnCell
 //
 //  Created by Petr Urban on 16/02/2017.
 //
@@ -8,31 +8,44 @@
 
 import UIKit
 
+/// View with text inside of colored circle
 class BadgeView: UIView {
 
     // MARK: - Variables
 
-    // MARK: Private
-
-    private let label = UILabel()
-
-    // MARK: Public
+    // MARK: public
 
     override var frame: CGRect {
         didSet {
-
             layer.cornerRadius = min(frame.width/2, frame.height/2)
-            label.frame = bounds.insetBy(dx: 2, dy: 2)
+            label.frame = bounds.insetBy(dx: textInset, dy: textInset)
             label.center = CGPoint(x: frame.width/2, y: frame.height/2)
         }
     }
 
+    // MARK: private
+
+    private lazy var label: UILabel = {
+        let l = UILabel()
+
+        l.textAlignment = .center
+        l.adjustsFontSizeToFitWidth = true
+        l.minimumScaleFactor = 0.5
+
+        return l
+    }()
+
+    private var textInset: CGFloat = 2.0
+
     // MARK: - Initialization
 
-    init() {
+    init(font: UIFont?, textInset inset: CGFloat?) {
         super.init(frame: .zero)
-
         setup()
+        label.font = font ?? UIFont.boldSystemFont(ofSize: 10)
+        if let i = inset {
+            textInset = i
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -42,23 +55,14 @@ class BadgeView: UIView {
     // MARK: - Setup
 
     private func setup() {
-
         addSubview(label)
-
-        backgroundColor = .blue
-
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
     }
 
     // MARK: - Customize
 
-    func customize(text: String, backgroundColor: UIColor, textColor: UIColor) {
+    func customize(text: String, backgroundColor bg: UIColor, textColor: UIColor) {
         label.text = text
-        self.backgroundColor = backgroundColor
+        backgroundColor = bg
         label.textColor = textColor
     }
 }
