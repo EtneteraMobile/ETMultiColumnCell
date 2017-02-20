@@ -140,28 +140,28 @@ struct DataFactory {
             let cell = ETMultiColumnCell.Configuration(columns: [
                 badgeOrNotColumnConfig,
                 createColumn(
-                    .relative(edges: padding),
+                    .relative(edges: padding, verticalAlignment: .middle),
                     style),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .middle),
                              .multiLine(createAtt(Int.random(lower: 20, upper: 100).toString(), 10))),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .middle),
                              .multiLine(createAtt(Int.random(lower: 2, upper: 20).toString(), 10))),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .middle),
                              .multiLine(createAtt(Int.random(lower: 20, upper: 20).toString(), 10))),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .top),
                              .multiLine(createAtt(Int.random(lower: 20, upper: 20).toString(), 10))),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .top),
                              .multiLine(createAtt(Int.random(lower: 20, upper: 20).toString(), 10))),
 
-                createColumn(.fixed(width: 40.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 40.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .bottom),
                              .multiLine(createAtt(Int.random(lower: 2, upper: 50).toString() + ":" + Int.random(lower: 2, upper: 50).toString(), 10))),
 
-                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding),
+                createColumn(.fixed(width: 30.0, borders: [.left(width: 1, color: .blue)], edges: padding, verticalAlignment: .bottom),
                              .multiLine(createAtt(Int.random(lower: 20, upper: 100).toString(), 10))),
             ])
 
@@ -179,11 +179,11 @@ struct DataFactory {
             let cell = ETMultiColumnCell.Configuration(columns: [
                 createColumn(
                     .fixed(width: 40.0, borders: [.left(width: 1, color: .blue)], edges: padding),
-                    .twoLabel(createAtt("12.10."), createAtt("2015", 10))),
+                    .lines([.oneLine(createAtt("12.10.")), .oneLine(createAtt("2015", 10))])),
 
                 createColumn(
                     .relative(edges: padding),
-                    .twoLabel(createAtt("FIRST \(String.random(length: Int.random(lower: 8, upper: 20)))"), createAtt("second \(String.random(length: Int.random(lower: 8, upper: 20)))", 10))),
+                    .lines([.multiLine(createAtt("FIRST \(String.random(length: Int.random(lower: 8, upper: 20)))")), .multiLine(createAtt("second \(String.random(length: Int.random(lower: 20, upper: 40)))", 10))])),
                 
                 createColumn(
                     .relative(edges: padding, verticalAlignment: .middle),
@@ -245,7 +245,11 @@ struct DataFactory {
     }
 
     private static func createColumn(_ layout: ETMultiColumnCell.Configuration.Column.Layout, _ style: LabelProvider.Content.Style) -> ETMultiColumnCell.Configuration.Column {
-        return ETMultiColumnCell.Configuration.Column(layout: layout, content: LabelProvider(with: LabelProvider.Content(style: style)))
+        LabelProvider.Content(style: style)
+        let c = LabelProvider.Content(style: style)
+        let p = LabelProvider(with: c)
+        return ETMultiColumnCell.Configuration.Column(layout: layout, content: p)
+//        return ETMultiColumnCell.Configuration.Column(layout: layout, content: LabelProvider(with: LabelProvider.Content(style: style)))
     }
 
     private static func createColumn(_ layout: ETMultiColumnCell.Configuration.Column.Layout, _ provider: ViewProvider) -> ETMultiColumnCell.Configuration.Column {

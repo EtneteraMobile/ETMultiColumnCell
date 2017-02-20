@@ -12,7 +12,6 @@ import Foundation
 
 public extension ETMultiColumnCell.Configuration {
 
-    /// Wrapps 
     public struct ColumnWrapper {
         let column: ETMultiColumnCell.Configuration.Column
         let size: CGSize
@@ -39,8 +38,10 @@ public extension ETMultiColumnCell.Configuration {
         let remainingWidth = width - fixedColumnsWidthSum
 
         // Is width sufficient
-        let description = "Sum width of fixed colums is longer than column width (fixedColumnsWidthSum=\(fixedColumnsWidthSum), columnWidth=\(width))."
-        guard remainingWidth > 0.0 else { throw ETMultiColumnCell.Error.insufficientWidth(description: description) }
+        guard remainingWidth > 0.0 else {
+            let description = "Sum width of fixed colums is longer than column width (fixedColumnsWidthSum=\(fixedColumnsWidthSum), columnWidth=\(width))."
+            throw ETMultiColumnCell.Error.insufficientWidth(description: description)
+        }
 
         let relativeColumnWidth = floor(remainingWidth / CGFloat(relativeColumnsCount))
 
@@ -53,29 +54,35 @@ public extension ETMultiColumnCell.Configuration {
             let alignment: Column.Layout.VerticalAlignment
 
             switch $0.layout {
-            case let .rel(borders: relativeBorders, edges: relativeEdges, verticalAlignment: relativeAlignment):
-                borders = relativeBorders
+            case let .rel(borders: b, edges: e, verticalAlignment: a):
+                borders = b
                 width = relativeColumnWidth
-                edges = relativeEdges
-                alignment = relativeAlignment
-            case let .fix(width: fixedWidth, borders: fixedBorders, edges: fixedEdges, verticalAlignment: fixedAlignment):
-                borders = fixedBorders
-                width = fixedWidth
-                edges = fixedEdges
-                alignment = fixedAlignment
+                edges = e
+                alignment = a
+            case let .fix(width: w, borders: b, edges: e, verticalAlignment: a):
+                borders = b
+                width = w
+                edges = e
+                alignment = a
             }
 
             let verticalEdges = edges.insets().vertical()
             let horizontalEdges = edges.insets().horizontal()
 
             let inWidth = width - horizontalEdges
-            guard inWidth > 0 else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Horizontal edges are longer than cell width (horizontalEdges=\(horizontalEdges), columnWidth=\(width)).") }
+            guard inWidth > 0 else {
+                let description = "Horizontal edges are longer than cell width (horizontalEdges=\(horizontalEdges), columnWidth=\(width))."
+                throw ETMultiColumnCell.Error.insufficientWidth(description: description)
+            }
 
             let height: CGFloat
 
             let size = $0.viewProvider.size(for: inWidth)
             height = size.height
-            guard size.width <= inWidth else { throw ETMultiColumnCell.Error.insufficientWidth(description: "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(size.width), inWidth=\(inWidth)).") }
+            guard size.width <= inWidth else {
+                let description = "Width of custom view is loonger than given width of cell content view (provider.viewSize().width=\(size.width), inWidth=\(inWidth))."
+                throw ETMultiColumnCell.Error.insufficientWidth(description: description)
+            }
 
             return ColumnWrapper(column: $0, size: CGSize(width: width, height: height + verticalEdges), edges: edges, borders: borders, alignment: alignment)
         }

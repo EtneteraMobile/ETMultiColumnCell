@@ -47,23 +47,5 @@ class ViewController: UITableViewController {
 
         try! c.customize(with: model[indexPath.row])
     }
-
-    private static var attributedText: NSAttributedString {
-
-        let paragraphStyleLeft = NSMutableParagraphStyle()
-        paragraphStyleLeft.alignment = .left
-        let paragraphStyleCenter = NSMutableParagraphStyle()
-        paragraphStyleCenter.alignment = .center
-        let paragraphStyleRight = NSMutableParagraphStyle()
-        paragraphStyleRight.alignment = .right
-
-        let r = NSMutableAttributedString(string: "right alignment with multiline text becaouse of it's length aslhgsadglkhsadg lsadgksadg laksjhdg", attributes: [NSParagraphStyleAttributeName: paragraphStyleRight, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)])
-        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]))
-        r.append(NSAttributedString(string: "center jumbotron", attributes: [NSParagraphStyleAttributeName: paragraphStyleCenter, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)]))
-        r.append(NSAttributedString(string: "\n", attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0)]))
-        r.append(NSAttributedString(string: "left multiline text with newline >\n< inside of it", attributes: [NSParagraphStyleAttributeName: paragraphStyleLeft, NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0)]))
-
-        return r
-    }
 }
 

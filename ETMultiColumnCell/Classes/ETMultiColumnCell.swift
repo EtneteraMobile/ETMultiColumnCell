@@ -24,8 +24,6 @@ public class ETMultiColumnCell: UITableViewCell {
     
     /// The only ETMultiColumnCell constructor.
     /// There is set up reuseIdentifier for given content. Subviews are createdl.
-    ///
-    /// - Parameter config: <#config description#>
     public init(with config: Configuration) {
 
         self.config = config
@@ -35,7 +33,6 @@ public class ETMultiColumnCell: UITableViewCell {
         
         setupSubviews()
         layer.addSublayer(borderLayer)
-//        borderLayer.masksToBounds = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -43,16 +40,6 @@ public class ETMultiColumnCell: UITableViewCell {
     }
     
     // MARK: - Content
-
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-
-        guard frame != .zero else {
-            return
-        }
-        
-        try? customizeColumns()
-    }
 
     /// Setup subviews based on current configuration.
     private func setupSubviews() {
@@ -70,7 +57,7 @@ public class ETMultiColumnCell: UITableViewCell {
         var lastRightEdge: CGFloat = 0.0
 
         let columnsWithSizes = try config.columnsWithSizes(in: frame.size.width)
-        let maxHeight = ETMultiColumnCell.maxHeight(columnsSizes: columnsWithSizes)
+        let maxHeight = columnsWithSizes.maxHeight
 
         borderLayer.frame = bounds
 
@@ -184,14 +171,10 @@ public extension ETMultiColumnCell {
     /// - Returns: unique string - hash from cell configuaration layout parameters
     public static func identifier(with config: ETMultiColumnCell.Configuration) -> String {
 
-        var customViewsIdentifier = ""
+        let cellId = String(describing: type(of: ETMultiColumnCell.self))
+        let columnsId = config.columns.reduce("") { return $0 + $1.viewProvider.reuseId }
 
-        config.columns.enumerated().forEach { (index, column) in
-            customViewsIdentifier.append("\(index)")
-            customViewsIdentifier.append(column.viewProvider.reuseId)
-        }
-
-        return NSStringFromClass(ETMultiColumnCell.self) + "-\(config.columns.count)" + customViewsIdentifier
+        return cellId + columnsId
     }
 
     /// Returns height of cell for given configuration
@@ -200,14 +183,17 @@ public extension ETMultiColumnCell {
     /// - Returns: height of cell for given configuration
     public static func height(with config: ETMultiColumnCell.Configuration, width: CGFloat) throws -> CGFloat {
 
-        return maxHeight(columnsSizes: try config.columnsWithSizes(in: width))
+        let columnsWithSizes = try config.columnsWithSizes(in: width)
+
+        return columnsWithSizes.maxHeight
     }
+}
 
-    internal static func maxHeight(columnsSizes: [Configuration.ColumnWrapper]) -> CGFloat {
-        let maxTouple = columnsSizes.max { lhs, rhs -> Bool in
-            return lhs.size.height < rhs.size.height
-        }
+// MARK: - Helpers
 
-        return maxTouple?.size.height ?? 0
+public extension Sequence where Iterator.Element == ETMultiColumnCell.Configuration.ColumnWrapper {
+
+    var maxHeight: CGFloat {
+        return self.max(by: { $0.size.height < $1.size.height })?.size.height ?? 0.0
     }
 }

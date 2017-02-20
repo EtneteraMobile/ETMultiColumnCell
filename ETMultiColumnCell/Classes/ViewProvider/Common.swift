@@ -10,9 +10,10 @@ import Foundation
 
 extension NSAttributedString {
 
-    func calculateHeight(in width: CGFloat) -> CGFloat {
+    func calculateHeight(inWidth width: CGFloat, isMultiline: Bool) -> CGFloat {
 
-        let boundingRect = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        let widthConstraints = (isMultiline == true ? width : CGFloat.greatestFiniteMagnitude)
+        let boundingRect = self.boundingRect(with: CGSize(width: widthConstraints, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
         return ceil(boundingRect.height)
     }

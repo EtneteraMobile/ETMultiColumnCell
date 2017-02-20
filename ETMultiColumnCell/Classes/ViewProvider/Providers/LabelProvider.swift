@@ -17,9 +17,9 @@ public struct LabelProvider: ViewProvider {
 
     public var reuseId: String {
         switch content.style {
-        case .multiLine(_): return "MultilineLabel"
         case .oneLine(_): return "OneLineLabel"
-        case .twoLabel(_): return "TwoLabel"
+        case .multiLine(_): return "MultilineLabel"
+        case let .lines(lines): return "MultiLabel-\(lines.count)"
         }
     }
 
@@ -37,23 +37,25 @@ public struct LabelProvider: ViewProvider {
 
     public func create() -> UIView {
         switch content.style {
-        case .multiLine(_): return UILabel()
         case .oneLine(_): return UILabel()
-        case .twoLabel(_): return TwoLabelsView()
+        case .multiLine(_): return UILabel()
+        case let .lines(lines): return MultiLabelsView(withLabelsCount: lines.count)
         }
     }
 
     public func customize(view: UIView) throws {
+        try customize(view, content.style)
+    }
 
-        switch content.style {
-        case let .multiLine(attText):
-            guard let v = view as? UILabel else { throw ViewProviderError.incompatibleView(description: "expected: UILabel") }
+    public func size(for width: CGFloat) -> CGSize {
+        return size(for: width, content.style)
+    }
 
-            v.attributedText = attText
+    // MARK: - Customize and size for recursion
 
-            v.numberOfLines = 0
-            v.lineBreakMode = .byClipping
+    public func customize(_ view: UIView, _ style: Content.Style) throws {
 
+        switch style {
         case let .oneLine(attText):
             guard let v = view as? UILabel else { throw ViewProviderError.incompatibleView(description: "expected: UILabel") }
 
@@ -62,51 +64,37 @@ public struct LabelProvider: ViewProvider {
             v.numberOfLines = 1
             v.lineBreakMode = .byTruncatingTail
 
-        case let .twoLabel(firstAttText, secondAttText):
-            guard let v = view as? TwoLabelsView else { throw ViewProviderError.incompatibleView(description: "expected: TwoLabelsView") }
+        case let .multiLine(attText):
+            guard let v = view as? UILabel else { throw ViewProviderError.incompatibleView(description: "expected: UILabel") }
 
-            v.firstLine.attributedText = firstAttText
-            v.firstLine.numberOfLines = 1
-            v.firstLine.adjustsFontSizeToFitWidth = false
-            v.firstLine.lineBreakMode = .byTruncatingTail
+            v.attributedText = attText
 
-            v.secondLine.attributedText = secondAttText
-            v.secondLine.numberOfLines = 1
-            v.secondLine.adjustsFontSizeToFitWidth = false
-            v.secondLine.lineBreakMode = .byTruncatingTail
+            v.numberOfLines = 0
+            v.lineBreakMode = .byTruncatingTail
+
+        case let .lines(lines):
+            guard let v = view as? MultiLabelsView, let labels = v.subviews as? [UILabel] else { throw ViewProviderError.incompatibleView(description: "expected: MultiLabelsView") }
+            guard lines.count == labels.count else { preconditionFailure("Specs couns different from labels count") }
+
+            try labels.enumerated().forEach {
+                let lineStyle = lines[$0.offset]
+                try self.customize($0.element, lineStyle)
+            }
         }
     }
 
-    public func size(for width: CGFloat) -> CGSize {
-        switch content.style {
-        case let .multiLine(attText):
-            return CGSize(width: width, height: calculateHeight(withText: attText, inWidth: width))
-
+    public func size(for width: CGFloat, _ style: Content.Style) -> CGSize {
+        switch style {
         case let .oneLine(attText):
-            return CGSize(width: width, height: calculateHeight(withText: attText, inWidth: width))
+            return CGSize(width: width, height: attText.calculateHeight(inWidth: width, isMultiline: false))
 
-        case let .twoLabel(firstAttText, secondAttText):
-            return CGSize(width: width, height: calculateHeight(withText: firstAttText, inWidth: width) + calculateHeight(withText: secondAttText, inWidth: width))
-        }
-    }
-
-    private func calculateHeight(withText attText: NSAttributedString, inWidth width: CGFloat) -> CGFloat {
-
-        // Calculates height manualy
-        let boundingRect:CGRect
-
-        switch content.style {
         case let .multiLine(attText):
-            boundingRect = attText.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+            return CGSize(width: width, height: attText.calculateHeight(inWidth: width, isMultiline: true))
 
-        case let .oneLine(attText):
-            boundingRect = attText.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-
-        case let .twoLabel(firstAttText, secondAttText):
-            boundingRect = attText.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        case let .lines(lines):
+            let height = lines.reduce(CGFloat(0.0)) { return $0 + self.size(for: width, $1).height }
+            return CGSize(width: width, height: height)
         }
-
-        return ceil(boundingRect.height)
     }
 }
 
@@ -121,10 +109,10 @@ public extension LabelProvider {
             self.style = style
         }
 
-        public enum Style {
-            case multiLine(NSAttributedString)
+        public indirect enum Style {
             case oneLine(NSAttributedString)
-            case twoLabel(NSAttributedString, NSAttributedString)
+            case multiLine(NSAttributedString)
+            case lines([Style])
         }
     }
 }

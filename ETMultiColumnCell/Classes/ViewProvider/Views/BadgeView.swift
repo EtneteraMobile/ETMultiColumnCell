@@ -13,16 +13,6 @@ class BadgeView: UIView {
 
     // MARK: - Variables
 
-    // MARK: public
-
-    override var frame: CGRect {
-        didSet {
-            layer.cornerRadius = min(frame.width/2, frame.height/2)
-            label.frame = bounds.insetBy(dx: textInset, dy: textInset)
-            label.center = CGPoint(x: frame.width/2, y: frame.height/2)
-        }
-    }
-
     // MARK: private
 
     private lazy var label: UILabel = {
@@ -54,6 +44,13 @@ class BadgeView: UIView {
 
     // MARK: - Setup
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.cornerRadius = min(frame.width/2, frame.height/2)
+        label.frame = bounds.insetBy(dx: textInset, dy: textInset)
+        label.center = CGPoint(x: frame.width/2, y: frame.height/2)
+    }
+    
     private func setup() {
         addSubview(label)
     }
