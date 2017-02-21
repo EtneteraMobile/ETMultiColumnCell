@@ -19,16 +19,9 @@ public protocol ViewProvider {
     func create() -> UIView
 
     /// Customizes given view with content before show.
-    func customize(view view: UIView) throws
+    func customize(view view: UIView)
 
     /// Returns size of view respecting given width. Height should be dynamicaly
     /// calculated based on content.
     func size(for width: CGFloat) -> CGSize
-}
-
-/// Error that is thrown by `ViewProvider.customize(view:)` function.
-public enum ViewProviderError: Swift.Error {
-
-    /// View hasn't expected type.
-    case incompatibleView(description: String)
 }

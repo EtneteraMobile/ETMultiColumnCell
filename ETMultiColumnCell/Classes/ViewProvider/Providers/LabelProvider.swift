@@ -43,8 +43,8 @@ public struct LabelProvider: ViewProvider {
         }
     }
 
-    public func customize(view: UIView) throws {
-        try customize(view, content.style)
+    public func customize(view: UIView) {
+        customize(view, content.style)
     }
 
     public func size(for width: CGFloat) -> CGSize {
@@ -53,11 +53,11 @@ public struct LabelProvider: ViewProvider {
 
     // MARK: - Customize and size for recursion
 
-    public func customize(_ view: UIView, _ style: Content.Style) throws {
+    public func customize(_ view: UIView, _ style: Content.Style) {
 
         switch style {
         case let .oneLine(attText):
-            guard let v = view as? UILabel else { throw ViewProviderError.incompatibleView(description: "expected: UILabel") }
+            guard let v = view as? UILabel else { preconditionFailure("Expected: UILabel") }
 
             v.attributedText = attText
 
@@ -65,7 +65,7 @@ public struct LabelProvider: ViewProvider {
             v.lineBreakMode = .byTruncatingTail
 
         case let .multiLine(attText):
-            guard let v = view as? UILabel else { throw ViewProviderError.incompatibleView(description: "expected: UILabel") }
+            guard let v = view as? UILabel else { preconditionFailure("Expected: UILabel")}
 
             v.attributedText = attText
 
@@ -73,12 +73,12 @@ public struct LabelProvider: ViewProvider {
             v.lineBreakMode = .byTruncatingTail
 
         case let .lines(lines):
-            guard let v = view as? MultiLabelsView, let labels = v.subviews as? [UILabel] else { throw ViewProviderError.incompatibleView(description: "expected: MultiLabelsView") }
+            guard let v = view as? MultiLabelsView, let labels = v.subviews as? [UILabel] else { preconditionFailure("Expected: MultiLabelsView") }
             guard lines.count == labels.count else { preconditionFailure("Specs couns different from labels count") }
 
-            try labels.enumerated().forEach {
+            labels.enumerated().forEach {
                 let lineStyle = lines[$0.offset]
-                try self.customize($0.element, lineStyle)
+                self.customize($0.element, lineStyle)
             }
         }
     }

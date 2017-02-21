@@ -67,7 +67,7 @@ public class ETMultiColumnCell: UITableViewCell {
 
             let subview = self.contentView.subviews[$0.offset]
 
-            try? config.columns[$0.offset].viewProvider.customize(view: subview)
+            config.columns[$0.offset].viewProvider.customize(view: subview)
 
             let edgeInsets = $0.element.edges.insets()
 
