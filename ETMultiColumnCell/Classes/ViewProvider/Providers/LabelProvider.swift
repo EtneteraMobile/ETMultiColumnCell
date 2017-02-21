@@ -43,7 +43,7 @@ public struct LabelProvider: ViewProvider {
         }
     }
 
-    public func customize(view: UIView) {
+    public func customize(view view: UIView) {
         customize(view, content.style)
     }
 
@@ -53,7 +53,7 @@ public struct LabelProvider: ViewProvider {
 
     // MARK: - Customize and size for recursion
 
-    public func customize(_ view: UIView, _ style: Content.Style) {
+    public func customize(view: UIView, _ style: Content.Style) {
 
         switch style {
         case let .oneLine(attText):
@@ -62,7 +62,7 @@ public struct LabelProvider: ViewProvider {
             v.attributedText = attText
 
             v.numberOfLines = 1
-            v.lineBreakMode = .byTruncatingTail
+            v.lineBreakMode = .ByTruncatingTail
 
         case let .multiLine(attText):
             guard let v = view as? UILabel else { preconditionFailure("Expected: UILabel")}
@@ -70,14 +70,14 @@ public struct LabelProvider: ViewProvider {
             v.attributedText = attText
 
             v.numberOfLines = 0
-            v.lineBreakMode = .byTruncatingTail
+            v.lineBreakMode = .ByTruncatingTail
 
         case let .lines(lines):
             guard let v = view as? MultiLabelsView, let labels = v.subviews as? [UILabel] else { preconditionFailure("Expected: MultiLabelsView") }
             guard lines.count == labels.count else { preconditionFailure("Specs couns different from labels count") }
 
-            labels.enumerated().forEach {
-                let lineStyle = lines[$0.offset]
+            labels.enumerate().forEach {
+                let lineStyle = lines[$0.index]
                 self.customize($0.element, lineStyle)
             }
         }

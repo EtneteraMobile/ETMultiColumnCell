@@ -43,10 +43,10 @@ public struct BadgeViewProvider: ViewProvider {
         return BadgeView(font: font, textInset: textInset)
     }
 
-    public func customize(view: UIView) {
+    public func customize(view view: UIView) {
         guard let customView = view as? BadgeView else { preconditionFailure("Expected: BadgeView") }
 
-        customView.customize(text: content.text, backgroundColor: content.backgroundColor, textColor: content.textColor)
+        customView.customize(content.text, backgroundColor: content.backgroundColor, textColor: content.textColor)
     }
 
     public func size(for width: CGFloat) -> CGSize {

@@ -29,7 +29,7 @@ public class ETMultiColumnCell: UITableViewCell {
         self.config = config
         borderLayer = CALayer()
 
-        super.init(style: .default, reuseIdentifier: ETMultiColumnCell.identifier(with: config))
+        super.init(style: .Default, reuseIdentifier: ETMultiColumnCell.identifier(with: config))
         
         setupSubviews()
         layer.addSublayer(borderLayer)
@@ -61,17 +61,17 @@ public class ETMultiColumnCell: UITableViewCell {
 
         borderLayer.frame = bounds
 
-        columnsWithSizes.enumerated().forEach {
+        columnsWithSizes.enumerate().forEach {
 
-            guard $0.offset < subviewsCount else { return }
+            guard $0.index < subviewsCount else { return }
 
-            let subview = self.contentView.subviews[$0.offset]
+            let subview = self.contentView.subviews[$0.index]
 
-            config.columns[$0.offset].viewProvider.customize(view: subview)
+            config.columns[$0.index].viewProvider.customize(view: subview)
 
             let edgeInsets = $0.element.edges.insets()
 
-            let layer = borderLayer.sublayers?[$0.offset]
+            let layer = borderLayer.sublayers?[$0.index]
 
             let columnSize = CGSize(width: $0.element.size.width, height: frame.height)
             layer?.frame = CGRect(origin: CGPoint(x: lastRightEdge, y: 0), size: columnSize)
@@ -123,11 +123,11 @@ public class ETMultiColumnCell: UITableViewCell {
         guard let sublayer = layer as? CAShapeLayer else { return }
 
         path.removeAllPoints()
-        path.move(to: .zero)
-        path.addLine(to: CGPoint(x: 0, y: frame.height))
+        path.moveToPoint(.zero)
+        path.addLineToPoint(CGPoint(x: 0, y: frame.height))
 
-        sublayer.path = path.cgPath
-        sublayer.strokeColor = color.cgColor
+        sublayer.path = path.CGPath
+        sublayer.strokeColor = color.CGColor
         sublayer.lineWidth = width
     }
 
@@ -170,7 +170,7 @@ public extension ETMultiColumnCell {
     /// - Returns: unique string - hash from cell configuaration layout parameters
     public static func identifier(with config: ETMultiColumnCell.Configuration) -> String {
 
-        let cellId = String(describing: type(of: ETMultiColumnCell.self))
+        let cellId = NSStringFromClass(ETMultiColumnCell.self)
         let columnsId = config.columns.reduce("") { return $0 + $1.viewProvider.reuseId }
 
         return cellId + columnsId
@@ -190,9 +190,9 @@ public extension ETMultiColumnCell {
 
 // MARK: - Helpers
 
-public extension Sequence where Iterator.Element == ETMultiColumnCell.Configuration.ColumnWrapper {
+public extension CollectionType where Generator.Element == ETMultiColumnCell.Configuration.ColumnWrapper {
 
     var maxHeight: CGFloat {
-        return self.max(by: { $0.size.height < $1.size.height })?.size.height ?? 0.0
+        return self.maxElement({ $0.size.height < $1.size.height })?.size.height ?? 0.0
     }
 }

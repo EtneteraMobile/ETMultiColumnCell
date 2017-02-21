@@ -12,8 +12,8 @@ extension NSAttributedString {
 
     func calculateHeight(inWidth width: CGFloat, isMultiline: Bool) -> CGFloat {
 
-        let widthConstraints = (isMultiline == true ? width : CGFloat.greatestFiniteMagnitude)
-        let boundingRect = self.boundingRect(with: CGSize(width: widthConstraints, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
+        let widthConstraints = (isMultiline == true ? width : CGFloat.max)
+        let boundingRect = self.boundingRectWithSize(CGSize(width: widthConstraints, height: CGFloat.max), options: .UsesLineFragmentOrigin, context: nil)
 
         return ceil(boundingRect.height)
     }
