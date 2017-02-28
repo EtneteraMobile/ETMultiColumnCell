@@ -12,6 +12,11 @@ import Foundation
 /// used in column of `ETMultiColumnCell`.
 public protocol ViewProvider {
 
+    /// Hash value for comparison
+    /// Hashable protocol isn't used to avoid error: "Protocol can only be used
+    /// as a generic ocntrait because it has Self requirement."
+    var hashValue: Int { get }
+
     /// Reuse identifier used for reuse of cell.
     var reuseId: String { get }
 

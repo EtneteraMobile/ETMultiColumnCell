@@ -20,6 +20,10 @@ public struct BadgeViewProvider: ViewProvider {
     public var font: UIFont?
     public var textInset: CGFloat?
 
+    public var hashValue: Int {
+        return content.text.hashValue ^ content.backgroundColor.hashValue ^ content.backgroundColor.hashValue
+    }
+
     // MARK: private
 
     private let content: Content
@@ -69,4 +73,10 @@ public extension BadgeViewProvider {
             self.textColor = textColor
         }
     }
+}
+
+// MARK: - Equatable
+
+public func ==(lhs: BadgeViewProvider, rhs: BadgeViewProvider) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }

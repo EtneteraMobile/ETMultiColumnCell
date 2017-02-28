@@ -13,7 +13,7 @@ import Foundation
 public extension ETMultiColumnCell {
 
     /// ETMultiColumnCell configuration structure
-    public struct Configuration {
+    public struct Configuration: Hashable {
 
         // MARK: - Variables
 
@@ -27,7 +27,15 @@ public extension ETMultiColumnCell {
         public init(columns: [Column]) {
             self.columns = columns
         }
+
+        public var hashValue: Int {
+            return columns.reduce(0) { $0 ^ $1.hashValue }
+        }
     }
+}
+
+public func ==(lhs: ETMultiColumnCell.Configuration, rhs: ETMultiColumnCell.Configuration) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }
 
 // MARK: - Configuration.Column
@@ -35,12 +43,16 @@ public extension ETMultiColumnCell {
 public extension ETMultiColumnCell.Configuration {
 
     /// Column configuration structure of ETMultiColumnCell
-    public struct Column {
+    public struct Column: Hashable {
 
         // MARK: - Variables
 
         public let layout: Layout
         public let viewProvider: ViewProvider
+
+        public var hashValue: Int {
+            return layout.hashValue ^ viewProvider.hashValue
+        }
 
         // MARK: - Initialization
 
@@ -59,7 +71,13 @@ public extension ETMultiColumnCell.Configuration.Column {
     ///
     /// - relative: relative size column
     /// - fixed: fixed size column (size as parameter)
-    public enum Layout {
+    public enum Layout: Hashable {
+
+        public var hashValue: Int {
+            if case let .rel(b, e, a) = self { return b.reduce(0) { $0 ^ $1.hashValue } ^ e.hashValue ^ a.hashValue }
+            if case let .fix(w, b, e, a) = self { return w.hashValue ^ b.reduce(0) { $0 ^ $1.hashValue } ^ e.hashValue ^ a.hashValue }
+            return 0
+        }
 
         // MARK: - Cases
 
@@ -94,14 +112,27 @@ public extension ETMultiColumnCell.Configuration.Column {
 
 public extension ETMultiColumnCell.Configuration.Column.Layout {
 
-    public enum Border {
+    public enum Border: Hashable {
         case left(width: CGFloat, color: UIColor)
+
+        public var hashValue: Int {
+            if case let .left(w, c) = self { return w.hashValue ^ c.hashValue}
+            return 0
+        }
     }
 
-    public enum VerticalAlignment {
+    public enum VerticalAlignment: Hashable {
         case top
         case middle
         case bottom
+
+        public var hashValue: Int {
+            switch self {
+            case .top: return 11
+            case .middle: return 22
+            case .bottom: return 33
+            }
+        }
     }
 }
 
@@ -109,7 +140,12 @@ public extension ETMultiColumnCell.Configuration.Column.Layout {
 
 public extension ETMultiColumnCell.Configuration.Column.Layout {
 
-    public enum Edges {
+    public enum Edges: Hashable {
+
+        public var hashValue: Int {
+            if case let .inner(t, l, b, r) = self { return t.hashValue ^ l.hashValue ^ b.hashValue ^ r.hashValue }
+            return 0
+        }
 
         // MARK: - Cases
 
@@ -118,15 +154,15 @@ public extension ETMultiColumnCell.Configuration.Column.Layout {
 
         // MARK: - Builders
 
-        public static func insets(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Edges {
+        public static func insets(top top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Edges {
             return .inner(top: top, left: left, bottom: bottom, right: right)
         }
 
-        public static func insets(vertical: CGFloat = 0, horizontal: CGFloat = 0) -> Edges {
+        public static func insets(vertical vertical: CGFloat = 0, horizontal: CGFloat = 0) -> Edges {
             return .inner(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
         }
 
-        public static func insets(all: CGFloat = 0) -> Edges {
+        public static func insets(all all: CGFloat = 0) -> Edges {
             return .inner(top: all, left: all, bottom: all, right: all)
         }
 
@@ -166,4 +202,27 @@ public extension ETMultiColumnCell.Configuration.Column.Layout {
             }
         }
     }
+}
+
+
+// MARK: - Equatable
+
+public func ==(lhs: ETMultiColumnCell.Configuration.Column, rhs: ETMultiColumnCell.Configuration.Column) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public func ==(lhs: ETMultiColumnCell.Configuration.Column.Layout, rhs: ETMultiColumnCell.Configuration.Column.Layout) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public func ==(lhs: ETMultiColumnCell.Configuration.Column.Layout.Border, rhs: ETMultiColumnCell.Configuration.Column.Layout.Border) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public func ==(lhs: ETMultiColumnCell.Configuration.Column.Layout.VerticalAlignment, rhs: ETMultiColumnCell.Configuration.Column.Layout.VerticalAlignment) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public func ==(lhs: ETMultiColumnCell.Configuration.Column.Layout.Edges, rhs: ETMultiColumnCell.Configuration.Column.Layout.Edges) -> Bool {
+    return lhs.hashValue == rhs.hashValue
 }

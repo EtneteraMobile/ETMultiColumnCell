@@ -23,6 +23,10 @@ public struct LabelProvider: ViewProvider {
         }
     }
 
+    public var hashValue: Int {
+        return content.style.hashValue
+    }
+
     // MARK: private
 
     private let content: Content
@@ -109,10 +113,29 @@ public extension LabelProvider {
             self.style = style
         }
 
-        public indirect enum Style {
+        public indirect enum Style: Hashable {
             case oneLine(NSAttributedString)
             case multiLine(NSAttributedString)
             case lines([Style])
+
+            public var hashValue: Int {
+                switch self {
+                case let .oneLine(text): return 0 ^ text.hashValue
+                case let .multiLine(text): return 1 ^ text.hashValue
+                case let .lines(lines): return lines.reduce(2) { $0 ^ $1.hashValue }
+                }
+            }
         }
     }
 }
+
+// MARK: - Equatable
+
+public func ==(lhs: LabelProvider, rhs: LabelProvider) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
+public func ==(lhs: LabelProvider.Content.Style, rhs: LabelProvider.Content.Style) -> Bool {
+    return lhs.hashValue == rhs.hashValue
+}
+
