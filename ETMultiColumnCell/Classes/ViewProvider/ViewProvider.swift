@@ -20,7 +20,7 @@ public protocol ViewProvider {
     /// Reuse identifier used for reuse of cell.
     var reuseId: String { get }
 
-    /// FReturns new instance of view that is presented in column of cell.
+    /// Returns new instance of view that is presented in column of cell.
     func create() -> UIView
 
     /// Customizes given view with content before show.
