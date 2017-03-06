@@ -11,8 +11,7 @@
 		71B788761E6D492900F5D235 /* ETMultiColumnCell+ConfigurationCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B788661E6D492900F5D235 /* ETMultiColumnCell+ConfigurationCalculations.swift */; };
 		71B788771E6D492900F5D235 /* ETMultiColumnCell+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B788671E6D492900F5D235 /* ETMultiColumnCell+Error.swift */; };
 		71B788781E6D492900F5D235 /* ETMultiColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B788681E6D492900F5D235 /* ETMultiColumnCell.swift */; };
-		71B788791E6D492900F5D235 /* ETMultiColumnCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 71B7886A1E6D492900F5D235 /* ETMultiColumnCell.h */; };
-		71B7887A1E6D492900F5D235 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71B7886B1E6D492900F5D235 /* Info.plist */; };
+		71B788791E6D492900F5D235 /* ETMultiColumnCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 71B7886A1E6D492900F5D235 /* ETMultiColumnCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71B7887B1E6D492900F5D235 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7886D1E6D492900F5D235 /* Common.swift */; };
 		71B7887C1E6D492900F5D235 /* BadgeViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7886F1E6D492900F5D235 /* BadgeViewProvider.swift */; };
 		71B7887D1E6D492900F5D235 /* LabelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B788701E6D492900F5D235 /* LabelProvider.swift */; };
@@ -22,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		71B788591E6D47C900F5D235 /* ETMultiColumnCell iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "ETMultiColumnCell iOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		71B788591E6D47C900F5D235 /* ETMultiColumnCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ETMultiColumnCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B788651E6D492900F5D235 /* ETMultiColumnCell+Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ETMultiColumnCell+Configuration.swift"; sourceTree = "<group>"; };
 		71B788661E6D492900F5D235 /* ETMultiColumnCell+ConfigurationCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ETMultiColumnCell+ConfigurationCalculations.swift"; sourceTree = "<group>"; };
 		71B788671E6D492900F5D235 /* ETMultiColumnCell+Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ETMultiColumnCell+Error.swift"; sourceTree = "<group>"; };
@@ -59,7 +58,7 @@
 		71B7885A1E6D47C900F5D235 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				71B788591E6D47C900F5D235 /* ETMultiColumnCell iOS.framework */,
+				71B788591E6D47C900F5D235 /* ETMultiColumnCell.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -144,7 +143,7 @@
 			);
 			name = "ETMultiColumnCell iOS";
 			productName = ETMultiColumnCell;
-			productReference = 71B788591E6D47C900F5D235 /* ETMultiColumnCell iOS.framework */;
+			productReference = 71B788591E6D47C900F5D235 /* ETMultiColumnCell.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -183,7 +182,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71B7887A1E6D492900F5D235 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +312,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.etnetera.ETMultiColumnCell;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ETMultiColumnCell;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -332,7 +330,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cz.etnetera.ETMultiColumnCell;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ETMultiColumnCell;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -356,6 +354,7 @@
 				71B788631E6D47C900F5D235 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
