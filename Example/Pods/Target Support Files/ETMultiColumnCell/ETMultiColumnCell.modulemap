@@ -1,6 +1,0 @@
-framework module ETMultiColumnCell {
-  umbrella header "ETMultiColumnCell-umbrella.h"
-
-  export *
-  module * { export * }
-}
