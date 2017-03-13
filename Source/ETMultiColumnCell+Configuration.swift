@@ -22,10 +22,14 @@ public extension ETMultiColumnCell {
         /// Array of configuration for each column
         public let columns: [Column]
 
+        /// Background color of contentView
+        public let backgroundColor: UIColor?
+
         // MARK: - Initialization
 
-        public init(columns: [Column]) {
+        public init(columns: [Column], backgroundColor: UIColor? = nil) {
             self.columns = columns
+            self.backgroundColor = backgroundColor
         }
 
         public var hashValue: Int {

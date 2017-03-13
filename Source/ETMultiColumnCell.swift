@@ -155,6 +155,9 @@ public class ETMultiColumnCell: UITableViewCell {
         // Updates local config
         self.config = config
 
+        // Adjusts background
+        contentView.backgroundColor = config.backgroundColor
+
         // Customizes content according new configuration
         try customizeColumns()
     }
