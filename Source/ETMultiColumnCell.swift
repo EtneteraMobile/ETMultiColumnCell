@@ -69,7 +69,7 @@ public class ETMultiColumnCell: UITableViewCell {
 
             config.columns[$0.index].viewProvider.customize(view: subview)
 
-            let edgeInsets = $0.element.edges.insets()
+            let edgeInsets = $0.element.edges.insets
 
             let layer = borderLayer.sublayers?[$0.index]
 
@@ -87,8 +87,8 @@ public class ETMultiColumnCell: UITableViewCell {
                 }
             }
 
-            let inWidth = $0.element.size.width - edgeInsets.horizontal()
-            let inHeight = $0.element.size.height - edgeInsets.vertical()
+            let inWidth = $0.element.size.width - edgeInsets.horizontal
+            let inHeight = $0.element.size.height - edgeInsets.vertical
 
             let contentSize = CGSize(width: inWidth, height: inHeight)
 

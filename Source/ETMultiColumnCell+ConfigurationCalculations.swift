@@ -66,8 +66,8 @@ public extension ETMultiColumnCell.Configuration {
                 alignment = a
             }
 
-            let verticalEdges = edges.insets().vertical()
-            let horizontalEdges = edges.insets().horizontal()
+            let verticalEdges = edges.insets.vertical
+            let horizontalEdges = edges.insets.horizontal
 
             let inWidth = width - horizontalEdges
             guard inWidth > 0 else {

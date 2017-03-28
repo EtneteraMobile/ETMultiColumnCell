@@ -175,8 +175,7 @@ public extension ETMultiColumnCell.Configuration.Column.Layout {
         /// Returns `EdgeInset` generated from self
         ///
         /// - Returns: space around content (`EdgeInset`)
-        func insets() -> Insets {
-
+        public var insets: Insets {
             switch self {
             case let .inner(top: top, left: left, bottom: bottom, right: right):
                 return Insets(top: top, left: left, bottom: bottom, right: right)
@@ -197,11 +196,11 @@ public extension ETMultiColumnCell.Configuration.Column.Layout {
             public let bottom: CGFloat
             public let right: CGFloat
 
-            public func vertical() -> CGFloat {
+            public var vertical: CGFloat {
                 return top + bottom
             }
 
-            public func horizontal() -> CGFloat {
+            public var horizontal: CGFloat {
                 return left + right
             }
         }
