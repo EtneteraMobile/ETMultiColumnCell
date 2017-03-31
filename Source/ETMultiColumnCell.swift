@@ -21,6 +21,10 @@ public class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
     public required init(with config: ETMultiColumnView.Configuration) {
         view = ETMultiColumnView(with: config)
         super.init(style: .Default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
+
+        contentView.addSubview(view)
+        view.frame = contentView.bounds
+        view.autoresizingMask = [ .FlexibleWidth, .FlexibleHeight ]
     }
     
     required public init?(coder aDecoder: NSCoder) {
