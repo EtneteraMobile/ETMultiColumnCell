@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "71B788581E6D47C900F5D235"
-               BuildableName = "ETMultiColumnCell iOS.framework"
+               BuildableName = "ETMultiColumnCell.framework"
                BlueprintName = "ETMultiColumnCell iOS"
                ReferencedContainer = "container:ETMultiColumnCell.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "71B788581E6D47C900F5D235"
-            BuildableName = "ETMultiColumnCell iOS.framework"
+            BuildableName = "ETMultiColumnCell.framework"
             BlueprintName = "ETMultiColumnCell iOS"
             ReferencedContainer = "container:ETMultiColumnCell.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "71B788581E6D47C900F5D235"
-            BuildableName = "ETMultiColumnCell iOS.framework"
+            BuildableName = "ETMultiColumnCell.framework"
             BlueprintName = "ETMultiColumnCell iOS"
             ReferencedContainer = "container:ETMultiColumnCell.xcodeproj">
          </BuildableReference>
