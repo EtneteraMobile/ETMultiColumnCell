@@ -10,7 +10,7 @@ import UIKit
 import ETMultiColumnView
 
 /// Configurable multi-column cell using `ETMultiColumnView` in internal representation.
-public class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
+open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
 
     // MARK: - Variables
     // MARK: private
@@ -20,11 +20,11 @@ public class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
 
     public required init(with config: ETMultiColumnView.Configuration) {
         view = ETMultiColumnView(with: config)
-        super.init(style: .Default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
+        super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
         view.frame = contentView.bounds
-        view.autoresizingMask = [ .FlexibleWidth, .FlexibleHeight ]
+        view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -34,7 +34,7 @@ public class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
     // MARK: - Actions
     // MARK: public
 
-    public func customize(with config: ETMultiColumnView.Configuration) throws {
+    open func customize(with config: ETMultiColumnView.Configuration) throws {
         try view.customize(with: config)
     }
 }

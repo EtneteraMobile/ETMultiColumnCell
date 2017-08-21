@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		713B30DB1F4AF47B00E53CB0 /* ETMultiColumnView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 713B30DA1F4AF47B00E53CB0 /* ETMultiColumnView.framework */; };
 		71CB198A1E8E6CE700BB1093 /* ETMultiColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CB19861E8E6CE700BB1093 /* ETMultiColumnCell.swift */; };
 		71CB198B1E8E6CE700BB1093 /* ETMultiColumnCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 71CB19881E8E6CE700BB1093 /* ETMultiColumnCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		71CB198E1E8E70EE00BB1093 /* ETMultiColumnView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71CB198D1E8E70EE00BB1093 /* ETMultiColumnView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		713B30DA1F4AF47B00E53CB0 /* ETMultiColumnView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ETMultiColumnView.framework; path = Carthage/Build/iOS/ETMultiColumnView.framework; sourceTree = "<group>"; };
 		71B788591E6D47C900F5D235 /* ETMultiColumnCell.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ETMultiColumnCell.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71CB19861E8E6CE700BB1093 /* ETMultiColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ETMultiColumnCell.swift; sourceTree = "<group>"; };
 		71CB19881E8E6CE700BB1093 /* ETMultiColumnCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ETMultiColumnCell.h; sourceTree = "<group>"; };
 		71CB19891E8E6CE700BB1093 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71CB198D1E8E70EE00BB1093 /* ETMultiColumnView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ETMultiColumnView.framework; path = Carthage/Build/iOS/ETMultiColumnView.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -25,7 +25,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71CB198E1E8E70EE00BB1093 /* ETMultiColumnView.framework in Frameworks */,
+				713B30DB1F4AF47B00E53CB0 /* ETMultiColumnView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,7 +35,7 @@
 		71B7884F1E6D47C900F5D235 = {
 			isa = PBXGroup;
 			children = (
-				71CB198D1E8E70EE00BB1093 /* ETMultiColumnView.framework */,
+				713B30DA1F4AF47B00E53CB0 /* ETMultiColumnView.framework */,
 				71CB19851E8E6CE700BB1093 /* Source */,
 				71B7885A1E6D47C900F5D235 /* Products */,
 			);
@@ -110,6 +110,7 @@
 				TargetAttributes = {
 					71B788581E6D47C900F5D235 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -264,6 +265,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cz.etnetera.ETMultiColumnCell;
 				PRODUCT_NAME = ETMultiColumnCell;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -288,6 +290,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cz.etnetera.ETMultiColumnCell;
 				PRODUCT_NAME = ETMultiColumnCell;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
