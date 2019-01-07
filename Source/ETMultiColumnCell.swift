@@ -28,7 +28,9 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
 
     open override func layoutSubviews() {
         super.layoutSubviews()
-        view.frame = contentView.readableContentGuide.layoutFrame
+        view.frame = contentView.bounds
+        view.frame.origin.x = contentView.readableContentGuide.layoutFrame.origin.x
+        view.frame.size.width = contentView.readableContentGuide.layoutFrame.size.width
     }
     
     required public init?(coder aDecoder: NSCoder) {
