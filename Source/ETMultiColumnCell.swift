@@ -21,10 +21,20 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
     public required init(with config: ETMultiColumnView.Configuration) {
         view = ETMultiColumnView(with: config)
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
+        setupConstraint()
+    }
 
+    private func setupConstraint() {
         contentView.addSubview(view)
-        view.frame = contentView.readableContentGuide.layoutFrame
-        view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let constraints = [
+            view.topAnchor.constraint(equalTo: contentView.topAnchor),
+            view.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ]
+
+        NSLayoutConstraint.activate(constraints)
     }
     
     required public init?(coder aDecoder: NSCoder) {
