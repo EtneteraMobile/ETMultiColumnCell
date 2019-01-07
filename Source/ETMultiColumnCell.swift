@@ -18,12 +18,12 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
 
     // MARK: - Initialization
 
-    public required init(with config: ETMultiColumnView.Configuration, respectReadableContent: Bool = false) {
+    public required init(with config: ETMultiColumnView.Configuration) {
         view = ETMultiColumnView(with: config)
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
-        view.frame = respectReadableContent ? contentView.readableContentGuide.layoutFrame : contentView.bounds
+        view.frame = contentView.readableContentGuide.layoutFrame
         view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
     }
     
