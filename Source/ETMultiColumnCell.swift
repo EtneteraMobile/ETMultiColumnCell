@@ -23,8 +23,12 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
-        view.frame = contentView.readableContentGuide.layoutFrame
         view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
+    }
+
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        view.frame = contentView.readableContentGuide.layoutFrame
     }
     
     required public init?(coder aDecoder: NSCoder) {
