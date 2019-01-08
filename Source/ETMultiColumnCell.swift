@@ -23,12 +23,16 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
-        view.frame = contentView.bounds
         view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    open override func layoutSubviews() {
+        super.layoutSubviews()
+        view.frame = contentView.bounds
     }
 
     // MARK: - Actions
