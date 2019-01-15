@@ -23,14 +23,11 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
-        view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
-    }
-
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        view.frame = contentView.bounds
-        view.frame.origin.x = contentView.readableContentGuide.layoutFrame.origin.x
-        view.frame.size.width = contentView.readableContentGuide.layoutFrame.size.width
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
