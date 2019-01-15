@@ -23,22 +23,22 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
         super.init(style: .default, reuseIdentifier: ETMultiColumnView.identifier(with: config))
 
         contentView.addSubview(view)
-        view.autoresizingMask = [ .flexibleWidth, .flexibleHeight ]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    open override func layoutSubviews() {
-        super.layoutSubviews()
-        view.frame = contentView.bounds
-    }
-
     // MARK: - Actions
     // MARK: public
 
     open func customize(with config: ETMultiColumnView.Configuration) throws {
+        view.layoutIfNeeded()
         try view.customize(with: config)
     }
 }
