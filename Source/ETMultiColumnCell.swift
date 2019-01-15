@@ -38,6 +38,7 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
     // MARK: public
 
     open func customize(with config: ETMultiColumnView.Configuration) throws {
+        view.layoutIfNeeded()
         try view.customize(with: config)
     }
 }
