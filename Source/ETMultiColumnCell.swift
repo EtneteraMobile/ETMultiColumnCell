@@ -46,11 +46,11 @@ open class ETMultiColumnCell: UITableViewCell, MultiColumnConfigurable {
 // MARK: - Static
 public extension ETMultiColumnCell {
 
-    public static func identifier(with config: ETMultiColumnView.Configuration) -> String {
+    static func identifier(with config: ETMultiColumnView.Configuration) -> String {
         return ETMultiColumnView.identifier(with: config)
     }
 
-    public static func height(with config: ETMultiColumnView.Configuration, width: CGFloat) throws -> CGFloat {
+    static func height(with config: ETMultiColumnView.Configuration, width: CGFloat) throws -> CGFloat {
         return try ETMultiColumnView.height(with: config, width: width)
     }
 }
